@@ -73,7 +73,7 @@ function generate_challenge_table(data) {
        console.log("Generating table rows for " + challenge_name)
        var start_time = new Date()
        if (challenge_name == 'regionnaire') {
-           generate_regionnaire_table_entry(data[challenge_name], table)
+           generate_regionnaire_google_table_entry(data[challenge_name], table)
        } else {
            generate_standard_table_entry(data[challenge_name], table)
        }
@@ -145,6 +145,162 @@ function get_challenge_header_row(challenge) {
 
     return main_row
 }
+
+// google graph
+function generate_regionnaire_google_table_entry(challenge, table) {
+    var shortname = challenge['shortname']
+
+    var challenge_tbody_header = get_tbody_header(challenge)
+    var challenge_tbody_detail = get_tbody_content(challenge)
+
+    // Create the header row and add it to the tbody that exists to hold
+    // the title row
+    var main_row = get_challenge_header_row(challenge)
+    challenge_tbody_header.append(main_row)
+
+    var google_data = []
+
+    iterate_regionnaire_google_data(google_data, challenge['regions'])
+    console.log(google_data)
+    console.log(JSON.stringify(google_data))
+
+    table.append(challenge_tbody_header)
+    table.append(challenge_tbody_detail)
+
+}
+
+function iterate_regionnaire_google_data(data, region, parent) {
+
+    if (parent === undefined) {
+        parent = null
+    }
+
+    var parent_name = null
+
+    if (parent != null) {
+        parent_name = parent.name
+    }
+
+    console.log(region["name"])
+
+    data.push([region.name, parent_name, region["child_events"].length, Object.keys(region["child_events_completed"]).length])
+
+    region["child_regions"].forEach(function (child_region) {
+        iterate_regionnaire_google_data(data, child_region, region)
+    })
+    return
+
+
+    // var region_name_sanitised = region["name"].toLowerCase().replace(/\s/g, "_")
+
+    // var region_class_name = "regionnaire-class-"+region_name_sanitised
+    // var region_event_class_name = region_class_name+"-event"
+    // var region_incomplete_event_class_name = region_class_name+"-event-incomplete"
+    // var region_complete_event_class_name = region_class_name+"-event-complete"
+
+    // var hide_show_message = "parkruns I haven't done"
+
+    // if (region["child_events_total"] == 0) {
+    //     return
+    // }
+
+    // var row = $('<tr></tr>')
+    // var twisty = $('<td></td>')
+    // var hide_region_sub_rows = false
+    // if (level == 1) {
+    //     if (region["child_events_completed_count"] == 0) {
+    //         twisty.append($('<b></b>').text("+"))
+    //         hide_region_sub_rows = true
+    //     } else {
+    //         twisty.append($('<b></b>').text("+"))
+    //     }
+    //     // Set the geo region to the top level one (not world)
+    //     // e.g. UK, Australia, Denmark
+    //     region_group = region_class_name
+    // }
+    // row.append(twisty)
+    // var prefix = Array(level).join("> ")
+    // row.append($('<td></td>').append($('<b></b>').text(prefix + " " + region["name"])))
+    // row.append($('<td></td>'))
+    // var completion_string = region["child_events_completed_count"]+"/"+region["child_events_total"]
+    // row.append($('<td></td>').text(completion_string))
+    // row.addClass(region_event_class_name)
+    // row.addClass(region_group)
+    // table.append(row)
+
+    // // Print out those events that have been completed
+    // region["child_events"].forEach(function (child_event) {
+    //     if (child_event in region["child_events_completed"]) {
+    //         var row = $('<tr></tr>')
+    //         row.addClass(region_complete_event_class_name)
+    //         row.append($('<td></td>').text(""))
+    //         row.append($('<td></td>'))
+    //         row.append($('<td></td>').text(child_event))
+    //         row.append($('<td></td>').text(region["child_events_completed"][child_event]["date"]))
+    //         row.addClass(region_group)
+    //         table.append(row)
+    //     }
+    // })
+    // // Print the info of the ones that you are missing (if any)
+    // if (region["complete"] == false) {
+    //     // Add a link to display the missing events (with them being normally
+    //     // hidden so as not to overwhelm the page)
+    //     // But only if there are sub-events
+    //     if (region.child_events.length > 0) {
+    //         var show_more_row = $('<tr/>')
+    //         show_more_row.append($('<td/>'))
+    //         show_more_row.append($('<td/>').append($('<span/>').click(function(){
+    //                 $("."+region_incomplete_event_class_name).show();
+    //                 // Change the visibility of the buttons for this section
+    //                 $("."+region_incomplete_event_class_name+"-show").hide();
+    //                 $("."+region_incomplete_event_class_name+"-hide").show();
+    //             }).text('show '+hide_show_message+" ...")).attr('colspan', 3))
+    //         show_more_row.addClass(region_incomplete_event_class_name+"-show")
+    //         show_more_row.addClass(region_group)
+    //         table.append(show_more_row)
+    //     }
+
+    //     // Create rows for all the unattended events, default to hidden
+    //     region["child_events"].forEach(function (child_event) {
+    //         if (!(child_event in region["child_events_completed"])) {
+    //             var row = $('<tr></tr>')
+    //             row.addClass(region_incomplete_event_class_name)
+    //             row.append($('<td></td>'))
+    //             row.append($('<td></td>'))
+    //             row.append($('<td></td>').text(child_event))
+    //             row.addClass(region_group)
+    //             // Hide the row by default
+    //             row.hide()
+    //             table.append(row)
+    //         }
+    //     })
+
+    //     var hide_more_row = $('<tr/>')
+    //     hide_more_row.append($('<td/>'))
+    //     hide_more_row.append($('<td/>').append($('<span/>').click(function(){
+    //             $("."+region_incomplete_event_class_name).hide();
+    //             // Change the visibility of the buttons for this section
+    //             $("."+region_incomplete_event_class_name+"-show").show();
+    //             $("."+region_incomplete_event_class_name+"-hide").hide();
+    //         }).text('hide '+hide_show_message)).attr('colspan', 3))
+    //     hide_more_row.addClass(region_incomplete_event_class_name+"-hide")
+    //     hide_more_row.addClass(region_group)
+    //     // Hide by default
+    //     hide_more_row.hide()
+    //     table.append(hide_more_row)
+    // }
+
+    // region["child_regions"].forEach(function (child_region) {
+    //     iterate_regionnaire_data(table, child_region, level+1, region_event_class_name)
+    // })
+
+    // // // Sort out the visibility of all sub rows
+    // // if (hide_region_sub_rows) {
+    // //     console.log('Hiding sub rows of '+region["name"]+" with class "+region_group)
+    // //     $("."+region_group).hide()
+    // // }
+}
+
 
 function generate_regionnaire_table_entry(challenge, table) {
     var shortname = challenge['shortname']

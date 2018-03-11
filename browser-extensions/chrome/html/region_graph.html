@@ -1,0 +1,62 @@
+<html>
+
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', { 'packages': ['treemap'] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Region', 'Parent region', 'Number of parkruns in this region', 'Number of completed parkruns'],
+        ["World", null, 0, 0], ["Australia", "World", 0, 0], ["Australian Capital Territory", "Australia", 5, 0], ["New South Wales", "Australia", 72, 0], ["Northern Territory", "Australia", 3, 0], ["Queensland", "Australia", 89, 0], ["South Australia", "Australia", 23, 0], ["Tasmania", "Australia", 7, 0], ["Victoria", "Australia", 63, 0], ["Western Australia", "Australia", 27, 0], ["Canada", "World", 13, 1], ["Denmark", "World", 7, 1], ["Finland", "World", 1, 0], ["France", "World", 8, 0], ["Germany", "World", 6, 0], ["Iceland", "World", 0, 0], ["Ireland", "World", 75, 0], ["Italy", "World", 8, 1], ["Malaysia", "World", 0, 0], ["New Zealand", "World", 0, 0], ["North Island", "New Zealand", 14, 0], ["South Island", "New Zealand", 6, 0], ["Norway", "World", 1, 0], ["Poland", "World", 53, 0], ["Russia", "World", 0, 0], ["Москва", "Russia", 15, 0], ["Московская область", "Russia", 5, 0], ["Приволжский федеральный округ", "Russia", 3, 0], ["Санкт-Петербург", "Russia", 4, 0], ["Северо-Кавказский ФО", "Russia", 1, 0], ["Сибирский Федеральный округ", "Russia", 1, 0], ["Уральский федеральный округ", "Russia", 2, 0], ["Центральный ФО", "Russia", 4, 0], ["Южный федеральный округ", "Russia", 1, 0], ["Singapore", "World", 2, 0], ["South Africa", "World", 0, 0], ["Cape Winelands", "South Africa", 11, 0], ["Eastern Cape", "South Africa", 16, 0], ["Free State", "South Africa", 12, 0], ["Garden Route and Karoo", "South Africa", 5, 0], ["Gauteng", "South Africa", 2, 0], ["Greater Cape Town", "South Africa", 12, 0], ["Greater Johannesburg", "South Africa", 21, 0], ["Greater Pretoria", "South Africa", 7, 0], ["KZN Coastal", "South Africa", 10, 0], ["KZN Inland", "South Africa", 9, 0], ["Kruger Lowveld", "South Africa", 5, 0], ["Limpopo", "South Africa", 3, 0], ["Mpumalanga", "South Africa", 6, 0], ["Namibia", "South Africa", 2, 0], ["North West", "South Africa", 4, 0], ["Northern Cape", "South Africa", 4, 0], ["Soweto", "South Africa", 1, 0], ["Swaziland", "South Africa", 1, 0], ["West Coast", "South Africa", 3, 0], ["Sweden", "World", 5, 0], ["UK", "World", 0, 0], ["Channel Islands", "UK", 2, 0], ["East Midlands", "UK", 34, 0], ["East of England", "UK", 63, 1], ["Greater London", "UK", 50, 2], ["North East England", "UK", 23, 0], ["North West England", "UK", 56, 10], ["Northern Ireland", "UK", 26, 0], ["Scotland", "UK", 35, 0], ["South East England", "UK", 80, 11], ["South West England", "UK", 49, 0], ["Wales", "UK", 28, 0], ["West Midlands", "UK", 24, 0], ["Yorkshire and the Humber", "UK", 43, 0], ["USA", "World", 18, 2], ["Zimbabwe", "World", 0, 0]
+      ]);
+
+      tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
+
+      var options = {
+        highlightOnMouseOver: false,
+        maxDepth: 1,
+        maxPostDepth: 2,
+        //minHighlightColor: '#cccccc',
+        //midHighlightColor: '#9ebcda',
+        //maxHighlightColor: '#009933',
+        minColor: '#d9d9d9',
+        midColor: '#d9d9d9',
+        maxColor: '#009933',
+        headerHeight: 15,
+        showScale: false,
+        height: 500,
+        useWeightedAverageForAggregation: true,
+        generateTooltip: showFullTooltip
+      };
+
+      tree.draw(data, options);
+
+      function showFullTooltip(row, size, value) {
+        return '<div style="background:#fd9; padding:10px; border-style:solid">' +
+          '<b>' + data.getValue(row, 0) +
+          '</b>, ' + data.getValue(row, 1) + ', ' + data.getValue(row, 2) +
+          ', ' + data.getValue(row, 3) + '<br>' +
+          data.getColumnLabel(2) + ': ' + size + '<br>' +
+          data.getColumnLabel(3) + ': ' + data.getValue(row, 3) + ' </div>';
+      }
+
+      // tree.draw(data, {
+      //   minColor: '#f00',
+      //   midColor: '#ddd',
+      //   maxColor: '#0d0',
+      //   headerHeight: 15,
+      //   fontColor: 'black',
+      //   showScale: true
+      // });
+
+    }
+
+  </script>
+</head>
+
+<body>
+  <div id="chart_div" style="width: 900px; height: 500px;"></div>
+</body>
+
+</html>
