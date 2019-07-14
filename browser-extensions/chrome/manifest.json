@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Running Challenges",
+  "name": "parkobiegowe wyzwania",
   "description": "Adds challenge progress information to your parkrun athlete results page.",
   "version": "REPLACE_EXTENSION_BUILD_VERSION.REPLACE_EXTENSION_BUILD_ID",
 

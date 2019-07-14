@@ -34,12 +34,12 @@ function generate_challenge_table() {
     // Use the 'results' id so that we pick up the standard styling
     table.attr("id", "results")
     // Optionally add a class with .addClass(this.tableClass)
-    table.append($('<caption></caption>').text('Challenges'))
+    table.append($('<caption></caption>').text('Wyzwania'))
 
     // Add a set of links on the top row
-    help_link = $('<a></a>').attr("href", browser.extension.getURL("/html/help.html")).attr("target", '_blank').text('help')
-    options_link = $('<a></a>').attr("href", browser.extension.getURL("/html/options.html")).attr("target", '_blank').text('options')
-    website_link = $('<a></a>').attr("href", "https://running-challenges.co.uk").attr("target", '_blank').text('website')
+    help_link = $('<a></a>').attr("href", browser.extension.getURL("/html/help.html")).attr("target", '_blank').text('pomoc')
+    options_link = $('<a></a>').attr("href", browser.extension.getURL("/html/options.html")).attr("target", '_blank').text('opcje')
+    website_link = $('<a></a>').attr("href", "https://running-challenges.co.uk").attr("target", '_blank').text('strona')
     help_td = $('<td></td>').attr('colspan', 6).attr('align', 'right')
     help_td.append(website_link)
     help_td.append(" | ")
@@ -154,10 +154,10 @@ function get_challenge_header_row(challenge, data) {
     var challenge_map_id = "challenge_"+challenge['shortname']+"_map"
     var challenge_map_link = ''
     if (data.info.has_geo_data && challenge.has_map === true) {
-        challenge_map_link = $('<span/>').attr("id", challenge_map_link_id).html("<span style=\"cursor: default\">show map</span>").click(function() {
-        console.log(challenge_map_id)
-        console.log(challenge)
-        console.log(challenge.nearest_qualifying_events)
+        challenge_map_link = $('<span/>').attr("id", challenge_map_link_id).html("<span style=\"cursor: default\">pokaż mapę</span>").click(function() {
+        //console.log(challenge_map_id)
+        //console.log(challenge)
+        //console.log(challenge.nearest_qualifying_events)
         create_challenge_map(challenge_map_id, challenge, data)
       })
     }
@@ -192,7 +192,7 @@ function generate_regionnaire_table_entry(challenge, table, data) {
     var regionnaire_map_id = 'regionnaire_map'
     var map_row = $("<tr/>").append($('<td colspan="4"><div id="'+regionnaire_map_id+'" style="height:400px; width:400"></div></td>'))
     challenge_tbody_detail.append(map_row)
-    var map_row = $("<tr/>").append($('<td colspan="4" align="center">Click the flags, pie-charts, and events in the map above for more info.<br/>Click on the countries and regions below to expand the data.</td>'))
+    var map_row = $("<tr/>").append($('<td colspan="4" align="center">Kliknij flagi, wykresy kołowe i lokalizacje na mapie powyżej by uzyskać więcej informacji.<br/>Kliknij na kraje i regiony poniżej by rozwinąć dane.</td>'))
     challenge_tbody_detail.append(map_row)
 
     draw_regionnaire_data_table(challenge_tbody_detail, challenge)
@@ -208,7 +208,7 @@ function create_regionnaire_map(div_id, data, challenge) {
   // Create the map to start with
 
   // Find where to focus the map on to start with
-  var default_centre = [25,0]
+  var default_centre = [52, 20]
   if (data.info.has_home_parkrun && data.info.is_our_page) {
     var home_parkrun = data.user_data.home_parkrun_info
     if (event_has_valid_location(home_parkrun)) {
@@ -216,7 +216,7 @@ function create_regionnaire_map(div_id, data, challenge) {
     }
   }
 
-  var r_map = L.map(div_id).setView(default_centre, 2);
+  var r_map = L.map(div_id).setView(default_centre, 6);
   // Allow it to be fullscreen
   r_map.addControl(new L.Control.Fullscreen());
 
@@ -528,9 +528,9 @@ var challenge_maps = {}
 
 function create_challenge_map(map_id, challenge_data, data) {
 
-  console.log(challenge_data)
+  //console.log(challenge_data)
 
-  var home_parkrun_marker_colour = 'purple'
+  var home_parkrun_marker_colour = 'red'
 
   // Create empty vector for each layer
   // var home_parkrun = new L.featureGroup()
@@ -597,15 +597,15 @@ function create_challenge_map(map_id, challenge_data, data) {
   // Remove all references
   challenge_maps = {}
 
-  // Default to centring on Winchester
-  var map_centre_lat_lon = [51.0632, -1.308]
+  // Default to centring on Pole Mokotowskie
+  var map_centre_lat_lon = [52.211555, 20.996041]
   if (data.info.is_our_page && data.info.has_home_parkrun) {
     var home_parkrun_info = data.user_data.home_parkrun_info
     if (event_has_valid_location(home_parkrun_info)) {
       map_centre_lat_lon = [+home_parkrun_info.lat, +home_parkrun_info.lon]
     }
   }
-  var mymap = L.map(map_element_id).setView(map_centre_lat_lon, 10);
+  var mymap = L.map(map_element_id).setView(map_centre_lat_lon, 5);
 
   // Add the new map to our set of maps for future reference
   challenge_maps[map_element_id] = {
@@ -771,15 +771,15 @@ function get_parkrun_popup(event_name, event_info, custom_options) {
   if (event_info.event_url) {
     event_name_link = '<div style="text-align:center"><a href="'+event_info.event_url+'" target="_blank">'+event_name+' parkrun</a></div>'
   } else if (event_info.local_url) {
-    event_name_link = '<div style="text-align:center"><a href="'+event_info.local_url+'/'+event_info.shortname+'" target="_blank">'+event_name+' parkrun</a></div>'
+    event_name_link = '<div style="text-align:center"><a href="'+event_info.local_url+'/'+event_info.shortname+'" target="_blank">parkrun '+event_name+'</a></div>'
   }
   popup = event_name_link
   if (event_info.distance !== undefined && options.distance) {
-    popup = popup+'<br/><div style="text-align:center">'+event_info.distance.toFixed(1)+" km away</div>"
+    popup = popup+'<br/><div style="text-align:center">'+event_info.distance.toFixed(1)+" km od domu</div>"
   }
 
   if (custom_options.completed_info && event_name in custom_options.completed_info) {
-    popup = popup+'<br/><div style="text-align:center">First attended: '+custom_options.completed_info[event_name][0].date+"</div>"
+    popup = popup+'<br/><div style="text-align:center">Pierwsze odwiedziny: '+custom_options.completed_info[event_name][0].date+"</div>"
   }
   return popup
 }
@@ -814,7 +814,7 @@ function draw_regionnaire_data_table(table, challenge_data) {
 
   var row = $("<tr/>")
   row.append($("<td/>").append(get_regionnaire_flag("World", true)))
-  row.append($("<td/>").append($("<b/>").text("World")))
+  row.append($("<td/>").append($("<b/>").text("Świat")))
   row.append($("<td/>"))
   row.append($("<td/>").text(world_completion_fraction_string))
   table.append(row)
@@ -1171,6 +1171,29 @@ function draw_regionnaire_data_table(table, challenge_data) {
 //
 // }
 
+function update_summary_stats(data) {
+  var durations = []
+  var ageGrades = []
+  var positions = []
+  data.parkrun_results.forEach(function (parkrun_event) {
+      durations.push(parkrun_event.duration)
+      ageGrades.push(parkrun_event.age_grade)
+      positions.push(parseInt(parkrun_event.position))
+  })
+  var median = Math.floor(durations.length / 2)
+  var medianDuration = durations.sort(function (duration1, duration2) { return duration1 - duration2 })[median]
+  var medianTime = Math.floor(medianDuration / 60) + ":" + ("0" + (medianDuration % 60)).slice(-2)
+  var medianAgeGrade = ageGrades.sort(function (ageGrade1, ageGrade2) { return ageGrade1 - ageGrade2 })[median]
+  var medianPosition = positions.sort(function (position1, position2) { return position1 - position2 })[median]
+  //console.log('medianTime: ' + medianTime + ', medianAgeGrade: ' + medianAgeGrade + ', medianPosition: ' + medianPosition)
+  $("caption:contains('Statystyki')").siblings("thead").find("th:contains('Najgorszy')").before("<th>Mediana</th>")
+  var summaryBody = $("caption:contains('Statystyki')").siblings("tbody")
+  summaryBody.children().eq(0).children().last().before("<td>" + medianTime + "</td>")
+  summaryBody.children().eq(1).children().last().before("<td>" + medianAgeGrade + "%</td>")
+  summaryBody.children().eq(2).children().last().before("<td>" + medianPosition + "</td>")
+  summaryBody.children().eq(3).children().last().before("<td> - </td>")
+}
+
 function generate_standard_table_entry(challenge, table, data) {
 
     var challenge_tbody_header = get_tbody_header(challenge)
@@ -1217,9 +1240,9 @@ function add_stats_table(div, data) {
     // Use the 'results' id so that we pick up the standard styling, yuk
     table.attr("id", "results")
     // Optionally add a class with .addClass(this.tableClass)
-    table.append($('<caption/>').text('Additional Athlete Stats'))
+    table.append($('<caption/>').text('Dodatkowe statystyki uczestnika'))
     // Add header row
-    var header_row = $('<tr/>').html('<th>Stat</th><th>Value</th>')
+    var header_row = $('<tr/>').html('<th>Wskaźnik</th><th>Wartość</th>')
     table.append(header_row)
 
     $.each(data.stats, function(stat_shortname, stat_info) {
@@ -1246,12 +1269,12 @@ function add_stats_table(div, data) {
   // if there is no athlete_id or home parkrun set
   if (data.info.has_athlete_id == false || data.info.has_home_parkrun == false) {
     var options_message_container = $('<div/>')
-    options_link = $('<a/>').attr("href", browser.extension.getURL("/html/options.html")).attr("target", '_blank').text('options.')
-    options_message_container.append('N.B. More stats and map features are available if you set your home parkrun and athlete id in the ')
+    options_link = $('<a/>').attr("href", browser.extension.getURL("/html/options.html")).attr("target", '_blank').text('opcjach.')
+    options_message_container.append('Więcej wskaźników jest dostępnych jeśli ustawisz kod i macierzystą lokalizację, w ')
     options_message_container.append(options_link)
     div.append($('<br/>'))
     div.append(options_message_container)
   }
-  div.append('<br/>Hover over the stats for a more detailed description')
+  div.append('<br/>Najedź kursorem na wskaźnik po dokładniejszy opis.')
 
 }

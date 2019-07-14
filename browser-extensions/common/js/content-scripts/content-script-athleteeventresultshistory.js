@@ -27,7 +27,7 @@ function get_table(id, caption) {
 
 function add_challenge_badges(div, data) {
 
-  console.log('Adding '+JSON.stringify(data)+' to '+ div)
+  console.log('Dodawanie '+JSON.stringify(data)+' do '+ div)
 
     badge_p = $("p", div)
     badge_p.empty()
@@ -92,18 +92,18 @@ function parse_volunteer_table(result) {
 }
 
 function set_complete_progress_message(errors) {
-  var messages = ['Additional badges provided by <a href="https://running-challenges.co.uk" target="_blank">Running Challenges</a>']
+  var messages = ['Dodatkowe odznaki dostarczone przez <a href="https://running-challenges.co.uk" target="_blank">parkobiegowe wyzwania</a>']
   $.each(errors, function(index, error_message) {
     messages.push(error_message)
   })
   if (errors.length > 0) {
-    messages.push('Refresh the page to try again')
+    messages.push('Odśwież stronę by spróbować ponownie')
   }
   set_progress_message(messages.join('<br/><br/>'))
 }
 
 function set_progress_message(progress_message) {
-  console.log("Progress: "+progress_message)
+  console.log("Postęp: "+progress_message)
   $("div[id=running_challenges_messages_div]").html(progress_message)
 }
 
@@ -127,6 +127,11 @@ function parse_results_table() {
               parkrun_event_number = table_cells[2].innerText.trim()
               parkrun_position = table_cells[3].innerText.trim()
               parkrun_time = table_cells[4].innerText.trim()
+              parkrun_age_grade = table_cells[5].innerText.trim()
+              parkrun_age_grade = parseFloat(parkrun_age_grade.substr(0, parkrun_age_grade.length - 1))
+              parkrun_duration = (parkrun_time.length == 7) ? 3600 : 0 // assume only 1:xx:xx
+              parkrun_duration += parseInt(parkrun_time.substr(parkrun_time.length - 5)) * 60
+              parkrun_duration += parseInt(parkrun_time.substr(parkrun_time.length - 2))
               parkrun_pb = table_cells[6].innerText.trim()
 
               // Create a date object, useful for comparing
@@ -144,6 +149,8 @@ function parse_results_table() {
                   "event_number": parkrun_event_number,
                   "position": parkrun_position,
                   "time": parkrun_time,
+                  "age_grade" : parkrun_age_grade,
+                  "duration" : parkrun_duration,
                   "pb": parkrun_pb.length > 0
               }
               parkruns_completed.push(parkrun_stats)
@@ -165,7 +172,7 @@ function create_skeleton_elements(id_map) {
 
   // The top sections are badges, flags, and messages.
   // Initially the badges and flags are empty until the data is parsed and loaded,
-  // and the messsages displayed will indicate progress.
+  // and the messages displayed will indicate progress.
 
   // Spacer to separate the existing shirt icons from our badges
   var running_challenges_top_spacer = $('<br/>')
@@ -188,7 +195,7 @@ function create_skeleton_elements(id_map) {
   var running_challenges_messages_div = $('<div/>').attr("id", id_map["messages"])
   running_challenges_message_spacer.after(running_challenges_messages_div)
   // Use the progress message function to se interval
-  set_progress_message('Loading <a href="https://running-challenges.co.uk" target="_blank">Running Challenges</a> Badges')
+  set_progress_message('Ładowanie odznak <a href="https://running-challenges.co.uk" target="_blank">parkobiegowych wyzwań</a>')
 
   // Create main table element
   var running_challenges_main_table_div = $('<div/>').attr("id", id_map["main"])
@@ -206,14 +213,14 @@ function create_skeleton_elements(id_map) {
 }
 
 function add_stats(div_id, data) {
-  set_progress_message("Adding stats")
+  set_progress_message("Dodawanie statystyk")
   var stats_div = $("div[id="+div_id+"]")
   add_stats_table(stats_div, data)
-  set_progress_message("Added stats")
+  set_progress_message("Dodano statystyki")
 }
 
 function add_badges(div_id, data) {
-  set_progress_message("Adding badges")
+  set_progress_message("Dodawanie odznak")
   // Find out which challenges we have been provided, and determine if they are
   // complete, and if so, award the badge
   var badges = []
@@ -263,7 +270,7 @@ function add_badges(div_id, data) {
   })
 
   // All done!
-  set_progress_message("Added badges")
+  set_progress_message("Dodano odznaki")
 }
 
 // Format the badge information specific to the running challenge data
@@ -299,20 +306,20 @@ function get_volunteer_badge(result) {
       }
       if (result.subparts_completed_count >= 25){
           badge_info.icon = browser.extension.getURL("/images/badges/"+result.badge_icon+"-3-stars.png")
-          badge_info.name += " (25+ times)"
+          badge_info.name += " (25+ razy)"
       } else if (result.subparts_completed_count >= 10){
           badge_info.icon = browser.extension.getURL("/images/badges/"+result.badge_icon+"-2-stars.png")
-          badge_info.name += " (10+ times)"
+          badge_info.name += " (10+ razy)"
       } else if (result.subparts_completed_count >= 5){
           badge_info.icon = browser.extension.getURL("/images/badges/"+result.badge_icon+"-1-star.png")
-          badge_info.name += " (5+ times)"
+          badge_info.name += " (5+ razy)"
       }
   }
   return badge_info
 }
 
 function add_flags(div_id, data) {
-  set_progress_message("Adding flags")
+  set_progress_message("Dodawanie flag")
   // console.log(data)
 
   if (data.parkrun_results && data.geo_data) {
@@ -361,11 +368,11 @@ function add_flags(div_id, data) {
     })
   }
 
-  set_progress_message("Added flags")
+  set_progress_message("Dodano flagi")
 }
 
 function add_challenge_results(div_id, data) {
-  set_progress_message("Adding challenge results")
+  set_progress_message("Dodawanie wyników wyzwań")
   // console.log(data)
   results_div = $("div[id="+div_id+"]")
   results_table = generate_challenge_table()
@@ -376,11 +383,11 @@ function add_challenge_results(div_id, data) {
       add_challenges_to_table(results_table, 'running_results', data)
     }
     if (data.info.has_challenge_volunteer_results) {
-      add_table_break_row(results_table, "Volunteer Challenges", "Get a purple badge when you've done a role once, get a star for doing the role 5+ times, two stars for 10+ times, three stars for 25+ times.")
+      add_table_break_row(results_table, "Wyzwania wolontariackie", "Zdobądź purpurową odznakę za jednokrotne pełnienie roli. Zdobądź gwiazdkę za pełnienie roli 5+ razy. Dwie gwiazdki za 10+ razy, trzy za 25+ razy.")
       add_challenges_to_table(results_table, 'volunteer_results', data)
     }
   }
-  set_progress_message("Added challenge results")
+  set_progress_message("Dodano wyniki wyzwań")
 }
 
 // What all our container divs are called
@@ -399,33 +406,33 @@ var loaded_geo_data = undefined
 var parsed_volunteer_data = undefined
 var parsed_results_data = undefined
 
-set_progress_message("Parsing Results")
+set_progress_message("Przetwarzanie wyników")
 parsed_results_data = parse_results_table()
-set_progress_message("Parsed Results")
+set_progress_message("Przetworzono wyniki")
 
-set_progress_message("Loading saved data")
+set_progress_message("Ładowanie zapisanych danych")
 browser.storage.local.get(["home_parkrun_info", "athlete_number"]).then((items) => {
-  set_progress_message("Loaded saved data")
+  set_progress_message("Ładowanie zapisanych danych")
   loaded_user_data = items
   // console.log("Here is the stored items, fetched with a promise:")
   // console.log(items)
 
   // Now lets fetch the geo data
-  set_progress_message("Loading geo data")
+  set_progress_message("Ładowanie danych geo")
   return browser.runtime.sendMessage({data: "geo"});
 }).then((results) => {
-  set_progress_message("Loaded geo data")
-  console.log('Loaded geo data was:')
+  set_progress_message("Załadowano dane geo")
+  console.log('Załadowane dane geo:')
   console.log(results.geo)
   // The return packet will normally be valid even if the geo data is not contained
   // within, so we do some sanity check here
   if (results.geo && results.geo.data) {
     loaded_geo_data = results.geo
   } else {
-    console.log('Geo data rejected')
+    console.log('Dane geo odrzucone')
   }
 
-  set_progress_message("Loading volunteer data")
+  set_progress_message("Ładowanie danych wolontariatu")
   // Now lets fetch the volunteer information
   return $.ajax({
     // If we translate this URL into the local one, not only do we have to
@@ -436,12 +443,12 @@ browser.storage.local.get(["home_parkrun_info", "athlete_number"]).then((items) 
     url: "https://www.parkrun.org.uk/results/athleteresultshistory/?athleteNumber="+get_athlete_id(),
     dataType: 'html'})
 }).then((results) => {
-  set_progress_message("Loaded volunteer data")
+  set_progress_message("Załadowano dane wolontariatu")
   // console.log("Here is the volunteer data, fetched with a promise:")
   // console.log(results)
-  set_progress_message("Parsing volunteer data")
+  set_progress_message("Przetwarzanie danych o wolontariacie")
   parsed_volunteer_data = parse_volunteer_table(results)
-  set_progress_message("All done")
+  set_progress_message("Wszystko gotowe!")
 
   data = {
     'parkrun_results': parsed_results_data,
@@ -478,30 +485,30 @@ browser.storage.local.get(["home_parkrun_info", "athlete_number"]).then((items) 
   // Update info with boolean for the presence of stats
   data.info.has_stats = (data.stats !== undefined)
 
-  console.log(data)
+  //console.log(data)
 
   // Use the acquired data to add all the additional information to the page
   add_badges(id_map["badges"], data)
   add_flags(id_map["flags"], data)
   add_challenge_results(id_map["main"], data)
   add_stats(id_map["stats"], data)
+  update_summary_stats(data)
 
   var errors = []
   if (data.info.has_geo_data == false) {
-    errors.push('! Unable to fetch parkrun event location data: Stats, Challenges, and Maps requiring locations are not available !')
+    errors.push('! Pobieranie danych lokalizacji nie powiodło się: Statystyki, wyzwania i mapy wymagające danych lokalizacji nie zostaną wyświetlone!')
   }
   if (data.info.has_geo_technical_event_data == false) {
-    errors.push('! Unable to fetch parkrun event status data: Stats and Challenges, e.g. Regionnaire, may include events that haven\'t started yet !')
+    errors.push('! Pobieranie danych o statusach lokalizacji nie powiodło się: Statystyki i wywania, np. Klub Basi Brzezińskiej, mogą zawierać lokalizacje, które nie zostały jeszcze uruchomione!')
   }
-
 
   // Add our final status message
   set_complete_progress_message(errors)
 
 }).catch(error => {
   console.log(error)
-  console.error(`An error occurred: ${error}`);
-  set_progress_message(`Error: ${error}`)
+  console.error(`Wystąpił błąd: ${error}`);
+  set_progress_message(`Błąd: ${error}`)
 });
 
 function get_athlete_id() {
@@ -511,6 +518,6 @@ function get_athlete_id() {
     if (page_parameters.includes('athleteNumber=')) {
         athlete_id = page_parameters.split('athleteNumber=')[1].split('&')[0]
     }
-    console.log('Athlete ID: '+athlete_id)
+    console.log('ID uczestnika: '+athlete_id)
     return athlete_id
 }

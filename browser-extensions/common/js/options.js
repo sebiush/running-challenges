@@ -11,6 +11,9 @@ function initial_page_setup() {
     $('#athlete_number').bind('keyup change', function() {
         on_change_athlete_number()
     })
+    $('#custom_word').bind('keyup change', function() {
+        on_change_custom_word()
+    })
     // Attach the clear-cache function to the 'Update Cache' button
     $('#update_cache').click(function() {
         update_cache(true)
@@ -52,6 +55,10 @@ function on_change_athlete_number() {
     }
 }
 
+function on_change_custom_word() {
+    var custom_word = $('#custom_word').val();
+}
+
 // function on_change_enable_beta_features() {
 //   console.log("on_change_enable_beta_features()")
 //   if ($('#enable_beta_features').prop('checked')) {
@@ -80,11 +87,11 @@ function show_debug_elements(visible=false) {
 
 function get_home_parkrun_info(parkrun_event_name) {
     // Look up extra pieces of information for this parkrun, if available
-    console.log('looking up info for home parkrun '+parkrun_event_name)
+    console.log('Wyszukiwanie danych macierzystej lokalizacji parkrun '+parkrun_event_name)
     if (geo_data !== null) {
         if (parkrun_event_name in geo_data.data.events) {
             home_event_info = geo_data.data.events[parkrun_event_name]
-            console.log('Found info for '+parkrun_event_name+': '+JSON.stringify(home_event_info))
+            console.log('Znaleziono info dla '+parkrun_event_name+': '+JSON.stringify(home_event_info))
             return home_event_info
         }
     }
@@ -99,9 +106,10 @@ function get_home_parkrun_info(parkrun_event_name) {
 }
 
 function save_user_configuration() {
-    console.log('save_user_configuration()')
+    //console.log('save_user_configuration()')
 
     var athlete_number = $('#athlete_number').val();
+    //var custom_word = $('#custom_word').val();
     var athlete_home_parkrun = $('#athlete_home_parkrun').val();
     // var enable_beta_features_checked = $('#enable_beta_features').prop('checked');
 
@@ -109,6 +117,7 @@ function save_user_configuration() {
     // Fetch the home parkrun info
     var saved_data = {
         athlete_number: athlete_number,
+        custom_word: custom_word,
         home_parkrun_info: get_home_parkrun_info(athlete_home_parkrun),
         // enable_beta_features: enable_beta_features_checked
     }
@@ -117,12 +126,12 @@ function save_user_configuration() {
     saved_options = saved_data
     update_home_parkrun_country()
 
-    console.log('Saving: '+JSON.stringify(saved_data))
+    console.log('Zapisywanie: '+JSON.stringify(saved_data))
 
     browser.storage.local.set(saved_data).then(function() {
         // Update status to let user know options were saved.
         var status = document.getElementById('status');
-        status.textContent = 'Options saved.';
+        status.textContent = 'Opcje zapisano.';
         setTimeout(function() {
             status.textContent = '';
         }, 750);
@@ -130,17 +139,19 @@ function save_user_configuration() {
 }
 
 function load_user_configuration() {
-    console.log('load_user_configuration()')
+    //console.log('load_user_configuration()')
     var restored_options = null
     browser.storage.local.get({
         athlete_number: '',
+        custom_word: '',
         home_parkrun_info: {},
         // enable_beta_features: false
     }).then(function(items) {
         // Store it on the page for future use
         saved_options = items
-        console.log('Loaded: '+JSON.stringify(items))
+        console.log('Załadowano: '+JSON.stringify(items))
         $('#athlete_number').val(items.athlete_number);
+        $('#custom_word').val(items.custom_word);
         // Update the home parkrun dropdown with the loaded value, if present
         update_home_parkrun_dropdown()
         // update_enable_beta_features_checkbox(items.enable_beta_features)
@@ -159,7 +170,7 @@ function load_user_configuration() {
 // }
 
 function update_cache(force_update=false) {
-    console.log('update_cache()')
+    //console.log('update_cache()')
     // Send a message to the background page to request the geo data
     browser.runtime.sendMessage({data: "geo", freshen: force_update}).then(function (response) {
         if (response !== null && 'geo' in response) {
@@ -174,7 +185,7 @@ function update_cache(force_update=false) {
 }
 
 function update_geo_data_stats() {
-    console.log('update_geo_data_stats()')
+    //console.log('update_geo_data_stats()')
     var s_last_update = "-"
     var s_known_regions = "0"
     var s_known_countries = "0"
@@ -208,14 +219,14 @@ function update_geo_data_stats() {
 }
 
 function update_home_parkrun_dropdown() {
-    console.log('update_home_parkrun_dropdown()')
+    //console.log('update_home_parkrun_dropdown()')
 
     var home_parkrun_select = $("#athlete_home_parkrun")
 
     var not_set_option = $('<option/>',
     {
         value: 'Not Set',
-        text: "Not Set"
+        text: "Nie ustawione"
     })
 
     // Clear all the existing keys
@@ -270,16 +281,16 @@ function update_home_parkrun_dropdown() {
 }
 
 function update_home_parkrun_country() {
-    console.log('update_home_parkrun_country()')
+    //console.log('update_home_parkrun_country()')
     var h_parkrun = $("#athlete_home_parkrun").val()
     var h_parkrun_div = $("#athlete_home_country_div")
 
     var p_info = get_home_parkrun_info(h_parkrun)
-    console.log(p_info)
+    //console.log(p_info)
     if ('country_name' in p_info) {
         h_parkrun_div.text(p_info.country_name)
     } else {
-        h_parkrun_div.text("Unknown")
+        h_parkrun_div.text("Nieznany")
     }
 
     $("#home_parkrun_info").text(JSON.stringify(p_info, null, 4))

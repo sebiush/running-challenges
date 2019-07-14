@@ -7,32 +7,31 @@
  */
 
 volunteer_roles_map = [
-    {"shortname": "equipment-storage", "name": "Equipment Storage and Delivery"},
-    {"shortname": "comms-person", "name": "Communications Person"},
-    {"shortname": "volunteer-coordinator", "name": "Volunteer Co-ordinator"},
-    {"shortname": "event-day-course-check", "name": "Event Day Course Check"},
-    {"shortname": "setup", "name": "Pre-event Setup"},
-    {"shortname": "car-park-marshal", "name": "Car Park Marshal"},
-    {"shortname": "first-timers-briefing", "name": "First Timers Briefing"},
-    {"shortname": "sign-language", "name": "Sign Language Support"},
-    {"shortname": "marshal", "name": "Marshal"},
-    {"shortname": "tail-walker", "name": "Tail Walker"},
-    {"shortname": "run-director", "name": "Run Director"},
-    {"shortname": "lead-bike", "name": "Lead Bike"},
-    {"shortname": "pacer", "name": "Pacer", "matching-roles": ["Pacer (5k only)"]},
-    {"shortname": "vi-guide", "name": "Guide Runner", "matching-roles": ["VI Guide"]},
-    {"shortname": "photographer", "name": "Photographer"},
-    {"shortname": "timer", "name": "Timer", "matching-roles": ["Timekeeper", "Backup Timer"]},
-    {"shortname": "funnel-manager", "name": "Funnel Manager"},
-    {"shortname": "finish-tokens", "name": "Finish Tokens & Support", "matching-roles": ["Finish Tokens", "Finish Token Support"]},
-    {"shortname": "barcode-scanning", "name": "Barcode Scanning"},
-    {"shortname": "manual-entry", "name": "Number Checker"},
-    {"shortname": "close-down", "name": "Post-event Close Down"},
-    {"shortname": "results-processing", "name": "Results Processor"},
-    {"shortname": "token-sorting", "name": "Token Sorting"},
-    {"shortname": "run-report-writer", "name": "Run Report Writer"},
-    {"shortname": "other", "name": "Other"},
-    {"shortname": "warm-up-leader", "name": "Warm Up Leader", "matching-roles": ["Warm Up Leader (junior events only)"]},
+    {"shortname": "equipment-storage", "name": "Przechowując(a)y sprzęt"},
+    {"shortname": "comms-person", "name": "Osoba od komunikacji"},
+    {"shortname": "volunteer-coordinator", "name": "Koordynator woluntariuszy"},
+    {"shortname": "event-day-course-check", "name": "Ustawiając(a)y elementy trasy"},
+    {"shortname": "setup", "name": "Instruktor nowych uczestników"},
+    {"shortname": "car-park-marshal", "name": "Koordynator parkingu"},
+    {"shortname": "first-timers-briefing", "name": "Instruktor nowych uczestników"},
+    {"shortname": "sign-language", "name": "Tłumacz języka migowego"},
+    {"shortname": "marshal", "name": "Ubezpieczając(a)y trasę"},
+    {"shortname": "tail-walker", "name": "Zamykając(a)y stawkę"},
+    {"shortname": "run-director", "name": "Koordynator biegu"},
+    {"shortname": "lead-bike", "name": "Rower bezpieczeństwa"},
+    {"shortname": "pacer", "name": "Wyznaczając(a)y tempo", "matching-roles": ["Wyznaczając(a)y tempo"]},
+    {"shortname": "vi-guide", "name": "Przewodnik dla słabowidzących", "matching-roles": ["Przewodnik dla słabowidzących"]},
+    {"shortname": "photographer", "name": "Fotograf"},
+    {"shortname": "timer", "name": "Osoba mierząca czas", "matching-roles": ["Osoba mierząca czas", "Zapasowy pomiar czasu"]},
+    {"shortname": "funnel-manager", "name": "Koordynator tunelu mety"},
+    {"shortname": "finish-tokens", "name": "Pozycje na mecie", "matching-roles": ["Pozycje na mecie", "Asystując(a)y przy pozycjach"]},
+    {"shortname": "barcode-scanning", "name": "Skanując(a)y uczestników"},
+    {"shortname": "manual-entry", "name": "Sprawdzając(a)y pozycje na mecie"},
+    {"shortname": "close-down", "name": "Zbierając(a)y elementy trasy"},
+    {"shortname": "results-processing", "name": "Wprowadzając(a)y wyniki"},
+    {"shortname": "token-sorting", "name": "Osoba sortująca tokeny"},
+    {"shortname": "run-report-writer", "name": "Przygotowując(a)y raport z biegu"},
+    {"shortname": "other", "name": "Inne"},
 ]
 
 function group_volunteer_data(volunteer_data) {
@@ -72,77 +71,100 @@ function generate_running_challenge_data(data) {
   if (data.parkrun_results) {
     challenge_data.push(challenge_tourist(data, {
       "shortname": "tourist",
-      "name": "Tourist",
+      "name": "Turysta",
       "data": 20,
-      "help": "Run at 20+ different parkrun locations anywhere in the world."}))
-    challenge_data.push(challenge_tourist(data, {
-      "shortname": "cowell-club",
-      "name": "Cowell Club",
-      "data": 100,
-      "help": "Run at 100+ different parkrun locations anywhere in the world. Named after the first parkrunners to complete it. A quarter cowell is available at 25, half at 50, and three-quarter at 75."}))
+      "help": "Ukończ 20+ lokalizacji parkrun gdziekolwiek na świecie."}))
     challenge_data.push(challenge_start_letters(data, {
       "shortname": "alphabeteer",
-      "name": "Alphabeteer",
-      "data": "abcdefghijklmnopqrstuvwyz",
-      "help": "Run at parkrun locations starting with each letter of the English alphabet (except X)."}))
+      "name": "Alfabet",
+      "data": "abcdegjklłoprsśtwzż",
+      "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter polskiego alfabetu (oprócz tych obecnie nieistniejących)."}))
+    challenge_data.push(challenge_start_letters(data, {
+        "shortname": "diacritic-alph",
+        "name": "Polskie litery diakrytyczne",
+        "data": "łśż",
+        "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter ł, ś i ż."}))
+    challenge_data.push(challenge_start_letters(data, {
+        "shortname": "custom-word",
+        "name": "Polska",
+        "data": "polska",
+        "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter układających się w słowo Polska."}))
+    challenge_data.push(challenge_start_letters(data, {
+          "shortname": "gieksa",
+          "name": "GieKSa 5:0",
+          "data": "gksgksgksgksgks",
+          "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter układających się w skrót GKS. Specjalnie dla parkrunnerów z Katowic. Cóż innego można zrobić z ośmioma lokalizacjami na G, 9 na K oraz 5 na S?!"}))
+    challenge_data.push(challenge_start_letters(data, {
+            "shortname": "g8-group",
+            "name": "Grupa G8",
+            "data": "gggggggg",
+            "help": "Ukończ parkrun w ośmiu lokalizacjach, których nazwy zaczynają się od liter G."}))
     challenge_data.push(challenge_single_parkrun_count(data, {
       "shortname": "single-ton",
-      "name": "Single-Ton",
+      "name": "Lokalny patriota na 100%",
       "data": 100,
-      "help": "Run 100+ parkruns at the same location."}))
+      "help": "Ukończ 100+ parkrun w tej samej lokalizacji."}))
     challenge_data.push(challenge_single_parkrun_count(data, {
       "shortname": "double-ton",
-      "name": "Double-Ton",
+      "name": "Lokalny patriota na 200%",
       "data": 200,
-      "help": "Run 200+ parkruns at the same location."}))
+      "help": "Ukończ 200+ parkrun w tej samej lokalizacji."}))
+    challenge_data.push(challenge_finish_position_bingo(data, {
+        "shortname": "finish-position-bingo",
+        "name": "Pozycyjne Bingo",
+        "help": " Zbierz wszystkie miejsca, od 1 do 100 w wynikach parkrun. Brana jest pod uwagę ogólna pozycja modulo 100, tzn. licznik przekręca się powyżej setki, dla większej dostępności wyzwania."}))
     challenge_data.push(challenge_stopwatch_bingo(data, {
       "shortname": "stopwatch-bingo",
-      "name": "Stopwatch Bingo",
-      "help": " Collect all the seconds from 00 to 59 in your finishing times."}))
-    challenge_data.push(challenge_start_letters(data, {
-      "shortname": "pirates",
-      "name": "Pirates!",
-      "data": "cccccccr",
-      "help": "Run seven Cs and an R (say it out loud)."}))
-    challenge_data.push(challenge_start_letters(data, {
-      "shortname": "stayin-alive",
-      "name": "Stayin' Alive",
-      "data": "bgbgbg",
-      "help": "Run three Bees and three Gees."}))
+      "name": "Stoperowe Bingo",
+      "help": " Zbierz wszystkie sekundy, od 00 do 59."}))
+      challenge_data.push(challenge_metronome(data, {
+        "shortname": "metronome",
+        "name": "Metronom",
+        "help": "Ukończ parkrun z tym samym czasem podczas 10 różnych okazji."}))
+     challenge_compass_club_regions(data, challenge_data)
+     challenge_data.push(challenge_words(data, {
+        "shortname": "lake-club",
+        "name": "Władca Jezior",
+        "data": ["Jezioro Górne","Jezioro Swarzędzkie","Jezioro Zatorze"],
+        "help": "Ukończ parkrun we wszystkich lokalizacjach Polski z jeziorem w nazwie."}))
     challenge_data.push(challenge_words(data, {
-      "shortname": "compass-club",
-      "name": "Compass Club",
-      "data": ["north","south","east","west"],
-      "help": " Run at a parkrun named after each of the four compass points."}))
+          "shortname": "park-club",
+          "name": "Spacerek po parku",
+          "data": ["Park miejski","Park na wyspie","Park zdrojowy"],
+          "help": "Ukończ parkrun we wszystkich lokalizacjach Polski z parkiem w nazwie."}))
     challenge_data.push(challenge_parkruns(data, {
       "shortname": "full-ponty",
-      "name": "The Full Ponty",
-      "data": ["Pontefract","Pontypool","Pontypridd","Pont y Bala"],
-      "help": "Run at all the parkruns named ponty... or ponte..."}))
+      "name": "Stolica",
+      "data": ["Pole Mokotowskie","Warszawa-Ursynów","Warszawa-Praga","Warszawa-Żoliborz","Warszawa-Bródno"],
+      "help": "Ukończ wszystkie lokalizacje w stolicy."}))
     challenge_data.push(challenge_parkruns(data, {
       "shortname": "pilgrimage",
-      "name": "Bushy Pilgrimage",
-      "data": ["Bushy Park"],
-      "help": "Run at Bushy parkrun, where it all began."}))
+      "name": "Pielgrzymka",
+      "data": ["Las Aniołowski", "Toruń"],
+      "help": "Ukończ parkrun w Częstochowie i Toruniu."}))
     // Note for the dates, the month is zero indexed (0-11), the day of the month is (1-31)
-    challenge_data.push(challenge_on_dates(data, {
-      "shortname": "christmas-day",
-      "name": "Christmas Day",
-      "data": [
-        {"month": 11, "day": 25}
-      ],
-      "help": "Run a parkrun on the 25th of December."}))
-    challenge_data.push(challenge_nyd_double(data, {
+     challenge_data.push(challenge_on_dates(data, {
+        "shortname": "boxing-day",
+        "name": "Drugi Dzień Świąt",
+        "data": [
+          {"month": 11, "day": 26}
+        ],
+        "help": "Ukończ parkrun 26 grudnia."}))
+      challenge_data.push(challenge_nyd_double(data, {
       "shortname": "nyd-double",
-      "name":  "NYD Double",
-      "help": "Run two parkruns on one New Year's Day."}))
+      "name":  "Dubel Noworoczny",
+      "help": "Ukończ dwa parkrun tego samego dnia w Nowym Roku."}))
     challenge_data.push(challenge_groundhog_day(data, {
       "shortname": "groundhog-day",
-      "name": "Groundhog Day",
-      "help": "Finish with the same time at the same parkrun location on two consecutive parkruns."}))
+      "name": "Dzień Świstaka",
+      "help": "Ukończ z tym samym czasem, w tej samej lokalizacji w dwóch kolejnych parkrun."}))
+    challenge_data.push(challenge_habitual(data, {
+        "shortname": "habitual",
+        "name": "Siła przyzwyczajenia",
+        "help": "Ukończ parkrun na tej samej pozycji podczas 10 różnych okazji."}))  
     challenge_data.push(challenge_on_dates(data, {
       "shortname": "all-weather-runner",
-      "name": "All Weather Runner",
+      "name": "Nie ma złej pogody na parkrun",
       "data": [
         {"month": 0},
         {"month": 1},
@@ -157,29 +179,76 @@ function generate_running_challenge_data(data) {
         {"month": 10},
         {"month": 11},
       ],
-      "help": "Run in each month of the year."}))
+      "help": "Ukończ parkrun w każdym miesiącu roku."}))
+    challenge_data.push(challenge_on_dates(data, {
+        "shortname": "callendar-runner",
+        "name": "Wyrywam kartki z kalendarza",
+        "data": [
+          {"day": 1},
+          {"day": 2},
+          {"day": 3},
+          {"day": 4},
+          {"day": 5},
+          {"day": 6},
+          {"day": 7},
+          {"day": 8},
+          {"day": 9},
+          {"day": 10},
+          {"day": 11},
+          {"day": 12},
+          {"day": 13},
+          {"day": 14},
+          {"day": 15},
+          {"day": 16},
+          {"day": 17},
+          {"day": 18},
+          {"day": 19},
+          {"day": 20},
+          {"day": 21},
+          {"day": 22},
+          {"day": 23},
+          {"day": 24},
+          {"day": 25},
+          {"day": 26},
+          {"day": 27},
+          {"day": 28},
+          {"day": 29},
+          {"day": 30},
+          {"day": 31},
+        ],
+        "help": "Ukończ parkrun w każdym możliwym dniu (dowolnego) miesiąca."}))  
+    challenge_data.push(challenge_in_a_year(data, {
+        "shortname": "obsessive-wood",
+        "name": "Drewniana Obsesja",
+        "data": 10,
+        "help": "Ukończ 10+ parkrunów jednym roku kalendarzowym."}))
+    challenge_data.push(challenge_in_a_year(data, {
+        "shortname": "obsessive-iron",
+        "name": "Żelazna Obsesja",
+        "data": 20,
+        "help": "Ukończ 20+ parkrunów jednym roku kalendarzowym"}))
     challenge_data.push(challenge_in_a_year(data, {
       "shortname": "obsessive-bronze",
-      "name": "Bronze Level Obsessive",
+      "name": "Brązowa Obsesja",
       "data": 30,
-      "help": "Run 30+ parkruns in one calendar year."}))
+      "help": "Ukończ 30+ parkrunów jednym roku kalendarzowym"}))
     challenge_data.push(challenge_in_a_year(data, {
       "shortname": "obsessive-silver",
-      "name": "Silver Level Obsessive",
+      "name": "Srebrna Obsesja",
       "data": 40,
-      "help": "Run 40+ parkruns in one calendar year."}))
+      "help": "Ukończ 40+ parkrunów jednym roku kalendarzowym"}))
     challenge_data.push(challenge_in_a_year(data, {
       "shortname": "obsessive-gold",
-      "name": "Gold Level Obsessive",
+      "name": "Złota Obsesja",
       "data": 50,
-      "help": "Run 50+ parkruns in one calendar year."}))
+      "help": "Ukończ 50+ parkrunów jednym roku kalendarzowym"}))
   }
 
   if (data.parkrun_results && data.geo_data) {
     challenge_data.push(challenge_by_region(data, {
       "shortname": "regionnaire",
-      "name": "Regionnaire",
-      "help": "Run all the parkrun locations in a geographical region."}))
+      "name": "Klub Basi Brzezińskiej",
+      "help": "Ukończ wszystkie lokalizacje w danym kraju/regionie."}))
   }
 
   return challenge_data
@@ -249,8 +318,8 @@ function generate_stat_total_runs(parkrun_results) {
     total_runs += 1
   })
   return {
-    "display_name": "Total number of parkruns",
-    "help": "The total number of parkruns completed.",
+    "display_name": "Ukończonych parkrun",
+    "help": "Całkowita liczba wszystkich ukończonych parkrun.",
     "value": total_runs
   }
 }
@@ -265,8 +334,8 @@ function generate_stat_total_pbs(parkrun_results) {
     }
   })
   return {
-    "display_name": "Total PBs",
-    "help": "The total number of PBs achieved across all parkruns.",
+    "display_name": "Liczba życiówek",
+    "help": "Całkowita liczba życiówek na wszystkich parkrun.",
     "value": total_pbs
   }
 }
@@ -289,9 +358,9 @@ function generate_stat_longest_pb_streak(parkrun_results) {
     }
   })
   return {
-    "display_name": "Longest PB streak",
-    "help": "The highest number of consecutive PBs achieved across all parkrun events.",
-    "value": longest_pb_streak + " parkruns"
+    "display_name": "Najdłuższa życiówkowa passa",
+    "help": "Największa liczba następujących po sobie życiówek, we wszystkich lokalizacjach.",
+    "value": longest_pb_streak + " parkrun"
   }
 }
 
@@ -308,9 +377,9 @@ function generate_stat_total_distance_ran(parkrun_results) {
     }
   })
   return {
-    "display_name": "Total parkrun distance",
-    "help": "The total distance achieved from adding up 5k for a parkrun, and 2k for a junior parkrun.",
-    "value": total_distance_ran+"km"
+    "display_name": "Całkowity dystans na parkrun",
+    "help": "Całkowity dystans pokonany na parkrun.",
+    "value": total_distance_ran+" km"
   }
 }
 
@@ -318,7 +387,7 @@ function generate_stat_total_distance_ran(parkrun_results) {
 // run in the results table
 function generate_stat_most_runs_in_a_year(parkrun_results) {
   var runs_per_year = {}
-  var value = "None"
+  var value = "Brak"
   // Group results by year
   parkrun_results.forEach(function (parkrun_event) {
     if (!(parkrun_event.date_obj.getFullYear() in runs_per_year)) {
@@ -338,12 +407,12 @@ function generate_stat_most_runs_in_a_year(parkrun_results) {
         best_years.push(year)
       }
     })
-    value = runs_per_year[best_year_sorted[0]] + " in " + best_years.join(", ")
+    value = runs_per_year[best_year_sorted[0]] + " w " + best_years.join(", ")
   }
 
   return {
-    "display_name": "Most parkruns in a year",
-    "help": "The highest number of parkruns attended in a calendar year.",
+    "display_name": "Najwięcej parkrun w roku",
+    "help": "Największa liczba parkrun w roku kalendarzowym.",
     "value": value
   }
 }
@@ -372,8 +441,8 @@ function generate_stat_p_index(parkrun_results) {
     }
   })
   return {
-    "display_name": "p-index",
-    "help": "The number of parkruns that satisfy the equation 'p parkruns run at least p times', e.g. if you have run 4 different parkruns at least 4 times each, your p-index is 4.",
+    "display_name": "Współczynnik p",
+    "help": "Liczba parkrun, która spełnia następującą formułę: 'p lokalizacji parkrun ukończone co najmniej p razy'. Np. jeśli ukończysz parkrun w 4 różnych lokalizacjach co najmniej po 4 razy w każdej, współczynnik p wyniesie 4.",
     "value": p_index
   }
 }
@@ -399,8 +468,8 @@ function generate_stat_v_index(volunteer_data) {
     }
   })
   return {
-    "display_name": "v-index",
-    "help": "The number of volunteer roles which have been performed at least v times. E.g. If you have volunteered in 4 different roles at least 4 times, your v-index is 4.",
+    "display_name": "Współczynnik v",
+    "help": "Liczba ról wolontariackich pełnionych co najmniej v razy. Np. jeśli co najmniej 4 razy pełnione były 4 role, współczynnik v wynosi 4.",
     "value": v_index
   }
 }
@@ -425,8 +494,8 @@ function generate_stat_wilson_index(parkrun_results) {
     }
   }
   return {
-    "display_name": "wilson-index",
-    "help": "The maximum contiguous series of parkrun event numbers you have attended (at any event), starting at 1.",
+    "display_name": "Współczynnik Wilsona",
+    "help": "Maksymalna liczba następująych po sobie (kolejnych) edycji (zaliczonych w dowolnej lokalizacji) i zaczynających się od 1 edycji (inauguracji).",
     "value": wilson_index
   }
 }
@@ -446,9 +515,77 @@ function generate_stat_parkrun_birthday(parkrun_results) {
     birthday = birthday_date.toLocaleDateString(undefined, options);
   }
   return {
-    "display_name": "parkrun birthday",
-    "help": "The date of your first parkrun!",
+    "display_name": "Pierwszy parkrun",
+    "help": "Data Twojego pierwszego zarejestrowanego parkrun!",
     "value": birthday
+  }
+}
+
+function generate_stat_finish_index(parkrun_results) {
+  var positions = []
+  parkrun_results.forEach(function (parkrun_event) {
+      positions.push(parseInt(parkrun_event.position))
+  })
+  positions.sort(function (position1, position2) { return position1 - position2 })
+  var currentStreak = 0
+  var longestStreak = 0
+  var longestStreakLastPosition = -1
+  var lastPosition = -1
+  positions.forEach(function (position) {
+      if (position == lastPosition + 1) {
+          currentStreak++
+      } else if (position > lastPosition + 1) {
+          if (currentStreak > longestStreak) {
+              longestStreak = currentStreak
+              longestStreakLastPosition = lastPosition
+          }
+          currentStreak = 1
+      }
+      lastPosition = position
+  })
+  if (currentStreak > longestStreak) {
+      longestStreak = currentStreak
+      longestStreakLastPosition = lastPosition
+  }
+  return {
+      "display_name": "Wskaźnik pozycji",
+      "help": "Maksymalna liczba następujących po sobie miejsc, jakie osiągnąłeś (w dowolnej lokalizacji), zaczynając od dowolnej pozycji.",
+      "value": longestStreak + " - od miejsca " + (longestStreakLastPosition - longestStreak + 1) + " do " + longestStreakLastPosition
+  }
+}
+
+function generate_stat_gossit_index(parkrun_results) {
+  var durations = []
+  parkrun_results.forEach(function (parkrun_event) {
+      durations.push(parkrun_event.duration)
+  })
+  durations.sort(function (duration1, duration2) { return duration1 - duration2 })
+  var currentStreak = 0
+  var longestStreak = 0
+  var longestStreakLastDuration = -1
+  var lastDuration = -1
+  durations.forEach(function (duration) {
+      if (duration == lastDuration + 1) {
+          currentStreak++
+      } else if (duration > lastDuration + 1) {
+          if (currentStreak > longestStreak) {
+              longestStreak = currentStreak
+              longestStreakLastDuration = lastDuration
+          }
+          currentStreak = 1
+      }
+      lastDuration = duration
+  })
+  if (currentStreak > longestStreak) {
+      longestStreak = currentStreak
+      longestStreakLastDuration = lastDuration
+  }
+  var streakStartTime = Math.floor((longestStreakLastDuration - longestStreak + 1) / 60) + ":" + ((longestStreakLastDuration - longestStreak + 1) % 60)
+  var streakFinishTime = Math.floor(longestStreakLastDuration / 60) + ":" + (longestStreakLastDuration % 60)
+  return {
+      "display_name": "Wskaźnik Gossita",
+      "help": "Maksymalna liczba następujących po sobie czasów (jakie osiągnąłeś w dowolnej lokalizacji), zaczynając od dowolnego czasu.",
+      "value": longestStreak + " - od " + streakStartTime + " do " + streakFinishTime
   }
 }
 
@@ -468,8 +605,8 @@ function generate_stat_years_parkrunning(parkrun_results) {
     }
   }
   return {
-    "display_name": "Years parkrunning",
-    "help": "How many full years you have been going to parkrun since your first event.",
+    "display_name": "Staż na parkrun",
+    "help": "Ile lat pojawiasz się na parkrun jako uczestnik.",
     "value": years
   }
 }
@@ -485,8 +622,8 @@ function generate_stat_events_run(parkrun_results) {
   })
 
   return {
-    "display_name": "Events run",
-    "help": "The number of different parkrun events you have attended.",
+    "display_name": "Ukończonych lokalizacji",
+    "help": "Liczba wszystkich różnych ukończonych lokalizacji.",
     "value": Object.keys(events_run).length
   }
 }
@@ -511,8 +648,8 @@ function generate_stat_tourist_quotient(parkrun_results) {
   }
 
   return {
-    "display_name": "Tourist Quotient",
-    "help": "The percentage of parkrun events attended that you had not been to before. If you never repeat a parkrun event it will be 100%, if you never tourist at all it will head towards 0%.",
+    "display_name": "Współczynnik turysty",
+    "help": "Procent odwiedzonych lokalizacji parkrun, w których nie byłeś wcześniej. Jeśli nigdy nie powtórzysz lokalizacji będzie to 100%, jeśli nigdy nie wyjeżdżasz, wartość będzie zmierzać do 0%.",
     "value": tourist_quotient
   }
 }
@@ -550,9 +687,9 @@ function generate_stat_longest_tourism_streak(parkrun_results) {
 
   })
   return {
-    "display_name": "Longest tourism streak",
-    "help": "The highest number of consecutive different events attended.",
-    "value": t_streak + " parkruns"
+    "display_name": "Najdłuższa turystyczna passa",
+    "help": "Największa liczba ukończonych kolejno po sobie parkrun w różnych lokalizacjach.",
+    "value": t_streak + " parkrun"
   }
 }
 
@@ -568,8 +705,8 @@ function generate_stat_runs_this_year(parkrun_results) {
   })
 
   return {
-    "display_name": "parkruns this year",
-    "help": "How many parkrun events you have got a time at this calendar year.",
+    "display_name": "Liczba parkrun ukończonych w tym roku",
+    "help": "Liczba lokalizacji parkrun ukończonych w tym roku.",
     "value": runs_this_year
   }
 }
@@ -607,9 +744,9 @@ function generate_stat_total_distance_travelled(parkrun_results, geo_data) {
   })
 
   return {
-    "display_name": "Total distance travelled",
-    "help": "The cumulative distance you have travelled between each parkrun event.",
-    "value": total_distance_travelled + "km"
+    "display_name": "Całkowity dystans pomiędzy lokalizacjami",
+    "help": "Całkowity dystans przebyty pomiędzy wszystkimi odwiedzonymi lokalizacjami.",
+    "value": total_distance_travelled + " km"
   }
 }
 
@@ -630,8 +767,8 @@ function generate_stat_total_countries_visited(parkrun_results, geo_data) {
   })
 
   return {
-    "display_name": "Countries visited",
-    "help": "The total number of countries that you have parkrunned in.",
+    "display_name": "Odwiedzone kraje",
+    "help": "Całkowita liczba krajów, w których ukończyłeś parkrun.",
     "value": Object.keys(parkrun_countries_visited).length
   }
 }
@@ -653,19 +790,19 @@ function generate_stat_average_parkrun_location(parkrun_results, geo_data) {
     }
   })
 
-  var value = "None"
+  var value = "Brak"
   var url_link = undefined
   if (count > 0) {
     var lat_av = (lat_sum/count).toFixed(5)
     var lon_av = (lon_sum/count).toFixed(5)
-    value =  lat_av + "," + lon_av
+    value =  lat_av + ", " + lon_av
     // Provide a link to an openstreetmap with a marker in the location
     url_link = "https://www.openstreetmap.org/?mlat="+lat_av+"&mlon="+lon_av+"#map=9/"+lat_av+"/"+lon_av
   }
 
   return {
-    "display_name": "Average parkrun lat/lon location",
-    "help": "The average latitude/longitude of all your parkrun attendances.",
+    "display_name": "Średnie współrzędne",
+    "help": "Średnie współrzędne (długość i szerokość geograficzna) Twojej obecności na parkrun.",
     "value": value,
     "url": url_link
   }
@@ -697,9 +834,9 @@ function generate_stat_furthest_travelled(parkrun_results, geo_data, home_parkru
   }
 
   return {
-    "display_name": "Furthest travelled",
-    "help": "The furthest away parkrun you have been to (calculated from your home parkrun).",
-    "value": furthest_travelled.display_name + ", "+ furthest_travelled.distance + "km"
+    "display_name": "Najdalszy odwiedzony",
+    "help": "Najdalej oddalona lokalizacja parkrun (liczone od Twojej lokalizacji macierzystej - zob. Opcje).",
+    "value": furthest_travelled.display_name + " - "+ furthest_travelled.distance + " km od macierzystej lokalizacji"
   }
 }
 
@@ -728,17 +865,17 @@ function generate_stat_nearest_event_not_done_yet(parkrun_results, geo_data, hom
       return event_distances[a] - event_distances[b]
   })
 
-  var value = "All parkruns completed!"
+  var value = "Wszystkie parkruny ukończone!"
 
   if (sorted_events.length > 0) {
     var nendy_name = sorted_events[0]
     var nendy = geo_data.data.events[nendy_name]
-    value = nendy.name + ", " + nendy.country_name+ " - " + Math.round(event_distances[nendy_name]) + "km away"
+    value = nendy.name + ", " + nendy.country_name+ " - " + Math.round(event_distances[nendy_name]) + " km od macierzystej lokalizacji"
   }
 
   return {
-    "display_name": "Nearest event not done yet (NENDY)",
-    "help": "The nearest parkrun event to your home parkrun that you have not done yet.",
+    "display_name": "Najbliższy nieukończony (NENDY)",
+    "help": "Najbliższy od Twojej macierzystej lokalizacji nieukończony parkrun (NENDY - nearest event not done yet).",
     "value": value
   }
 }
@@ -752,8 +889,8 @@ function generate_stat_total_volunteer_roles(volunteer_data) {
     total_volunteer_roles += count
   })
   return {
-    "display_name": "Total volunteer roles",
-    "help": "The total number of times your name has appeared next to a role on the volunteer roster - note this includes the fact you can get multiple credits per week, and does not indicate your eligibility for a milestone shirt.",
+    "display_name": "Liczba wolontariatów",
+    "help": "Całkowita liczba razy ile Twoje imię i nazwisko pojawiło się w harmonogramie (wliczając w to wielokrotne role jednego tygodnia).",
     "value": total_volunteer_roles
   }
 }
@@ -761,8 +898,8 @@ function generate_stat_total_volunteer_roles(volunteer_data) {
 // How many of the different volunteer roles have you done
 function generate_stat_total_distinct_volunteer_roles(volunteer_data) {
   return {
-    "display_name": "Total distinct volunteer roles",
-    "help": "How many of the different volunteering roles have been completed.",
+    "display_name": "Całkowita liczba ról wolontariackich",
+    "help": "Liczba różnych pełnionych ról wolontariackich.",
     "value": Object.keys(volunteer_data).length
   }
 }
@@ -775,18 +912,20 @@ function generate_stats(data) {
   // Stats that only need the list of parkruns
   if (data.info.has_parkrun_results) {
     stats['total_runs'] = generate_stat_total_runs(data.parkrun_results)
-    stats['total_pbs'] = generate_stat_total_pbs(data.parkrun_results)
-    stats['longest_pb_streak'] = generate_stat_longest_pb_streak(data.parkrun_results)
-    stats['total_distance_ran'] = generate_stat_total_distance_ran(data.parkrun_results)
+    stats['events_run'] = generate_stat_events_run(data.parkrun_results)
     stats['most_runs_in_a_year'] = generate_stat_most_runs_in_a_year(data.parkrun_results)
     stats['runs_this_year'] = generate_stat_runs_this_year(data.parkrun_results)
-    stats['p_index'] = generate_stat_p_index(data.parkrun_results)
-    stats['wilson_index'] = generate_stat_wilson_index(data.parkrun_results)
     stats['parkrun_birthday'] = generate_stat_parkrun_birthday(data.parkrun_results)
     stats['years_parkrunning'] = generate_stat_years_parkrunning(data.parkrun_results)
-    stats['events_run'] = generate_stat_events_run(data.parkrun_results)
+    stats['total_pbs'] = generate_stat_total_pbs(data.parkrun_results)
+    stats['longest_pb_streak'] = generate_stat_longest_pb_streak(data.parkrun_results)
+    stats['p_index'] = generate_stat_p_index(data.parkrun_results)
+    stats['wilson_index'] = generate_stat_wilson_index(data.parkrun_results)
+    stats['finish_index'] = generate_stat_finish_index(data.parkrun_results)
+    stats['gossit_index'] = generate_stat_gossit_index(data.parkrun_results)
     stats['tourist_quotient'] = generate_stat_tourist_quotient(data.parkrun_results)
     stats['tourism_streak'] = generate_stat_longest_tourism_streak(data.parkrun_results)
+    stats['total_distance_ran'] = generate_stat_total_distance_ran(data.parkrun_results)
   }
 
   // Stats that need a list of parkruns, and additional geo data to determine where they are
@@ -854,15 +993,12 @@ function get_flag_image_src(country) {
   }
 
   return flag_src
-
 }
 
 function generate_global_tourism_data(parkrun_results, geo_data) {
     // Generate essentially the same results as the regionnaire challenge all over again
     // console.log("generate_global_tourism_data()")
     var global_tourism = []
-
-
 
     regions = geo_data.data.regions
     events_completed_map = group_results_by_event(parkrun_results)
@@ -1000,13 +1136,12 @@ function group_global_events_by_initial_letter(geo_data) {
   })
 
   return events
-
 }
 
 
 function sort_events_by_distance(events, from_location) {
 
-  console.log("sort_events_by_distance()")
+  //console.log("sort_events_by_distance()")
   var sorted_events = []
 
   // If we have a unusable from location, return straight away
@@ -1034,7 +1169,6 @@ function sort_events_by_distance(events, from_location) {
 
   // console.log(sorted_events)
   return sorted_events
-
 }
 
 function sort_grouped_events_by_distance(grouped_events, from_location) {
@@ -1109,6 +1243,11 @@ function challenge_start_letters(data, params) {
 
     var o = create_data_object(params, "runner")
     o.has_map = true
+// console.log(data.info.has_custom_word)
+//     if (data.info.has_custom_word) {
+//       o.custom_word = data.user_data.get_custom_word
+//       console.log(o.custom_word)
+//     }
 
     // Add all the subparts to the list
     for (i=0; i<letters.length; i++) {
@@ -1216,6 +1355,37 @@ function challenge_start_letters(data, params) {
     return update_data_object(o)
 }
 
+function challenge_compass_club_regions(data, challenge_data) {
+  $.each(data.geo_data.data.countries, function (country_name, country_info) {
+    var country = {}
+    //limiting to Poland (id=23) only
+    if (data.geo_data.data.regions[country_name].id=="23"){
+      if (data.geo_data.data.regions[country_name].child_event_recursive_names.length > 0) {
+        $.each(data.geo_data.data.regions[country_name].child_event_recursive_names, function(index, event_name) {
+          var event_info = data.geo_data.data.events[event_name]
+          if (country['north'] === undefined || parseFloat(event_info.lat) > parseFloat(country['north'].lat))
+            country['north'] = event_info
+          if (country['south'] === undefined || parseFloat(event_info.lat) < parseFloat(country['south'].lat))
+            country['south'] = event_info
+          if (country['east'] === undefined || parseFloat(event_info.lon) > parseFloat(country['east'].lon))
+            country['east'] = event_info
+          if (country['west'] === undefined || parseFloat(event_info.lon) < parseFloat(country['west'].lon))
+            country['west'] = event_info
+        })
+
+        //console.log(country_name + ": north - " + country['north'].name + ", east - " + country['east'].name + ", south - " + country['south'].name + ", west - " + country['west'].name)
+        var challenge = challenge_parkruns(data, {
+            "shortname": "compass-club",
+            "name": "Klub Kompasu",
+            "data": [country['north'].name, country['east'].name, country['south'].name, country['west'].name],
+            "help": "Ukończ parkrun w najbardziej wysuniętych w czterech stronach świata lokalizacjach Polski."
+        })
+        challenge['badge_icon'] = 'runner-compass-club'
+        challenge_data.push(challenge)
+    }}
+  })
+}
+
 function challenge_words(data, params) {
 
   var parkrun_results = data.parkrun_results
@@ -1312,6 +1482,7 @@ function challenge_words(data, params) {
     }
 
     // Return an object representing this challenge
+    //console.log(o)
     return update_data_object(o)
 }
 
@@ -1528,6 +1699,20 @@ function get_home_parkrun(data) {
   return undefined
 }
 
+// // Return true if there is a custom word set
+// function has_custom_word(data) {
+//   custom_word = get_custom_word(data)
+//   return custom_word !== undefined
+// }
+
+// function get_custom_word(data) {
+//   if (data.user_data !== undefined) {
+//     return data.user_data.custom_work
+//   }
+//   return undefined
+// }
+
+
 function has_lat_lon(details) {
   return details.lat !== undefined && details.lon !== undefined
 }
@@ -1583,6 +1768,62 @@ function challenge_stopwatch_bingo(data, params) {
 
     // Return an object representing this challenge
     return update_data_object(o)
+}
+
+function challenge_finish_position_bingo(data, params) {
+
+  var parkrun_results = data.parkrun_results
+  var o = create_data_object(params, "runner")
+
+  // Add all the subparts to the list
+  for (i=1; i<=100; i++) {
+      number_string = i.toString()
+      o.subparts.push(number_string)
+      o.subparts_detail[number_string] = null
+  }
+
+  parkrun_results.forEach(function (parkrun_event) {
+      // Convert finish position to a number to get the index in our array
+      subparts_detail_index = parseInt(parkrun_event.position) % 100
+  if (subparts_detail_index == 0)
+    subparts_detail_index = 100
+  if (o.subparts_detail[subparts_detail_index] == null) {
+    o.subparts_detail[subparts_detail_index] = Object.create(parkrun_event)
+    o.subparts_detail[subparts_detail_index].subpart = subparts_detail_index
+    o.subparts_detail[subparts_detail_index].name = 1
+    o.subparts_detail[subparts_detail_index].info = parkrun_event.date
+    o.subparts_completed_count += 1
+
+    if (!(parkrun_event.name in o.completed_qualifying_events)) {
+      o.completed_qualifying_events[parkrun_event.name] = get_parkrun_event_details(data, parkrun_event.name)
+    }
+
+    if (o.subparts.length == o.subparts_completed_count) {
+      o.complete = true
+      o.completed_on = parkrun_event.date
+    }
+  }
+  else {
+    o.subparts_detail[subparts_detail_index].name++
+  }
+  });
+
+  // Add in all the missing ones
+  for (i=1; i<=100; i++) {
+      if (o.subparts_detail[i] == null) {
+          o.subparts_detail[i] = {
+              "subpart": i,
+              "info": "-",
+      "name": "-"
+          }
+      }
+  else {
+    o.subparts_detail[i].name = o.subparts_detail[i].name.toString() + "x"
+  }
+  }
+
+  // Return an object representing this challenge
+  return update_data_object(o)
 }
 
 // Complete 100 parkruns at the same venue
@@ -1652,6 +1893,59 @@ function challenge_single_parkrun_count(data, params) {
     return update_data_object(o)
 }
 
+function challenge_metronome(data, params) {
+  var parkrun_results = data.parkrun_results
+  var o = create_data_object(params, "runner")
+  o.complete = false
+  o.subparts = ["1"]
+  o.summary_text = "0"
+  var timeCounts = {}
+  parkrun_results.forEach(function (parkrun_event) {
+    if (o.subparts_detail.length == 0) {
+          var timeCount = timeCounts[parkrun_event.time]
+          if (timeCount === undefined)
+              timeCounts[parkrun_event.time] = 1
+          else
+              timeCounts[parkrun_event.time] = timeCount + 1
+
+      if (timeCount == 9) { // now 10
+              o.subparts_detail.push({
+                  "name": parkrun_event.time,
+                  "date": parkrun_event.date,
+                  "info": parkrun_event.date,
+                  "subpart": "10x"
+              })
+              o.subparts_completed_count = 1
+              o.summary_text = "1"
+              o.complete = true
+              o.completed_on = parkrun_event.date
+          }
+    }
+  })
+
+  var highestCount = 0
+  var highestTime = ""
+  if (!o.complete) {
+    for (var time in timeCounts) {
+      if (timeCounts[time] > highestCount) {
+        highestCount = timeCounts[time]
+        highestTime = time
+      }
+    }
+  }
+
+  if (o.subparts_detail.length == 0) {
+      o.subparts_detail.push({
+          "name": highestTime,
+          "subpart": highestCount + "x",
+          "date": "-",
+          "info": "-"
+      })
+  }
+
+  return update_data_object(o)
+}
+
 function challenge_on_dates(data, params) {
   var parkrun_results = data.parkrun_results
   var o = create_data_object(params, "runner")
@@ -1678,9 +1972,9 @@ function challenge_on_dates(data, params) {
 
         subpart_name = this_challenge_date.month+"/"+this_challenge_date.day
         if (this_challenge_date.month !== undefined && this_challenge_date.day === undefined) {
-          subpart_name = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_')[this_challenge_date.month]
+          subpart_name = 'Styczeń_Luty_Marzec_Kwiecień_Maj_Czerwiec_Lipiec_Sierpień_Wrzesień_Październik_Listopad_Grudzień'.split('_')[this_challenge_date.month]
         } else if (this_challenge_date.month === undefined && this_challenge_date.day !== undefined) {
-          subpart_name = this_challenge_date.day+"st/nd/rd/th"
+          subpart_name = this_challenge_date.day+" dzień miesiąca"
         }
 
         o.subparts_detail[index] = {
@@ -1727,7 +2021,7 @@ function challenge_on_dates(data, params) {
         }
 
         if (applicable_day && applicable_month) {
-          console.log("Event matches both day & month for : " + JSON.stringify(this_challenge_date) + " - " + JSON.stringify(parkrun_event))
+          //console.log("Event matches both day & month for : " + JSON.stringify(this_challenge_date) + " - " + JSON.stringify(parkrun_event))
           // Append this completed parkrun to the correct subpart list
           o.subparts[index].push(parkrun_event)
         }
@@ -1740,7 +2034,7 @@ function challenge_on_dates(data, params) {
   // Work out how many times we have completed the challenge by looking at
   // how many events have been added for each subpart
   var completion_count = undefined;
-  console.log(o.subparts)
+  //console.log(o.subparts)
   o.subparts.forEach(function(events_for_this_date) {
     if (completion_count === undefined) {
       completion_count = events_for_this_date.length
@@ -1753,7 +2047,7 @@ function challenge_on_dates(data, params) {
     o.complete = true
   }
 
-  console.log("This challenge has been completed x" + completion_count)
+  console.log("Wyzwanie ukończone " + completion_count +" razy.")
   o.subparts_completed_count = completion_count
 
   // If there is only one date, we can reasonably list the date that the parkrunner
@@ -1818,7 +2112,7 @@ function challenge_nyd_double(data, params) {
         if (previous_parkrun != null && day_month == "01/01/" && parkrun_event.date == previous_parkrun.date) {
 
             o.subparts_detail.push({
-                "name": parkrun_event.name+" and "+previous_parkrun.name,
+                "name": parkrun_event.name+" i "+previous_parkrun.name,
                 "date": parkrun_event.date,
                 "info": parkrun_event.date,
                 "subpart": o.subparts_detail.length + 1
@@ -1861,6 +2155,59 @@ function challenge_nyd_double(data, params) {
     return update_data_object(o)
 }
 
+function challenge_habitual(data, params) {
+  var parkrun_results = data.parkrun_results
+  var o = create_data_object(params, "runner")
+  o.complete = false
+  o.subparts = ["1"]
+  o.summary_text = "0"
+  var positionCounts = {}
+  parkrun_results.forEach(function (parkrun_event) {
+      if (o.subparts_detail.length == 0) {
+          var positionCount = positionCounts[parkrun_event.position]
+          if (positionCount === undefined)
+              positionCounts[parkrun_event.position] = 1
+          else
+              positionCounts[parkrun_event.position] = positionCount + 1
+          if (positionCount == 9) { // now 10
+              o.subparts_detail.push({
+                  "name": "Miejsce: " + parkrun_event.position,
+                  "date": parkrun_event.date,
+                  "info": parkrun_event.date,
+                  "subpart": "10x"
+              })
+              o.subparts_completed_count = 1
+              o.summary_text = "x1"
+              o.complete = true
+              o.completed_on = parkrun_event.date
+          }
+
+      }
+  })
+
+  var highestCount = 0
+  var highestPosition = 0
+  if (!o.complete) {
+      for (var position in positionCounts) {
+          if (positionCounts[position] > highestCount) {
+              highestCount = positionCounts[position]
+              highestPosition = position
+          }
+      }
+  }
+
+  if (o.subparts_detail.length == 0) {
+      o.subparts_detail.push({
+          "name": "Miejce: " + highestPosition,
+          "subpart": highestCount + "x",
+          "date": "-",
+          "info": "-"
+      })
+  }
+
+  return update_data_object(o)
+}
+
 function challenge_groundhog_day(data, params) {
 
   var parkrun_results = data.parkrun_results
@@ -1880,8 +2227,8 @@ function challenge_groundhog_day(data, params) {
 
             o.subparts_detail.push({
                 "name": parkrun_event.name,
-                "date": previous_parkrun.date+" and "+parkrun_event.date,
-                "info": parkrun_event.time+" on "+previous_parkrun.date+" and "+parkrun_event.date,
+                "date": previous_parkrun.date+" i "+parkrun_event.date,
+                "info": parkrun_event.time+" w dniach: "+previous_parkrun.date+" i "+parkrun_event.date,
                 "subpart": o.subparts_detail.length + 1
             })
 

@@ -432,16 +432,16 @@ function get_geo_data(notify_func, freshen=false) {
                     // See if we have a previous one to fall back on
                     if (cache.geo.raw_data === undefined) {
                         // If not, send something back
-                        console.log('No data to go on!')
+                        console.log('Brakuje danych!')
                         notify_geo_data(notify_func)
                         return
                     } else {
                         // Else make the best use of what we had previously
-                        console.log('Using previously obtained raw data')
+                        console.log('Próbujemy z poprzednimi surowymi danymi.')
                         data_geo = cache['geo'].raw_data
                     }
                 } else {
-                  console.log('Fresh data available')
+                  console.log('Świeże dane dostępne.')
                 }
 
                 // Check if we have technical event information and fall back if not
@@ -457,7 +457,7 @@ function get_geo_data(notify_func, freshen=false) {
         )
     } else {
         // Just return the cached data
-        console.log('Returning cached data for TEE & Geo Data')
+        console.log('Zwracamy scachowane dane TEE i Geo.')
         notify_geo_data(notify_func)
     }
 

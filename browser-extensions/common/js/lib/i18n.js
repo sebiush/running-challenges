@@ -45,8 +45,8 @@ var domains = {
         "link_view_stats_for_all_parkruns_athleteeventhistory": "View stats for all parkruns by this athlete",
         "link_all": "All",
         // These variables contain text we output, so need translating by someone
-        "text_see_challenge_progress": "See challenge progress",
-        "text_running_challenges": "Running Challenges",
+        "text_see_challenge_progress": "Sprawdź postęp parkobiegowych wyzwań",
+        "text_running_challenges": "Parkobiegowe wyzwania",
         // Volunteer roles are in ENGLISH
         "text_volunteer_role_map": {
             "Equipment Storage and Delivery": "Equipment Storage and Delivery",
@@ -89,33 +89,33 @@ var domains = {
         "link_view_stats_for_all_parkruns": "Zobacz statystyki uczestnika ze wszystkich biegów parkrun",
         "link_view_stats_for_all_parkruns_athleteeventhistory": "Zobacz wyniki tego zawodnika ze wszystkich biegów",
         "text_volunteer_role_map": {
-            "Przechowując(a)y sprzęt": "Equipment Storage and Delivery",
-            "Osoba od komunikacji": "Communications Person",
-            "Koordynator woluntariuszy": "Volunteer Co-ordinator",
-            "Ustawiając(a)y elementy trasy": "Pre-event Setup",
-            "Instruktor nowych uczestników": "First Timers Briefing",
-            "Tłumacz języka migowego": "Sign Language Support",
-            "Ubezpieczając(a)y trasę": "Marshal",
-            "Zamykając(a)y stawkę": "Tail Walker",
-            "Koordynator biegu": "Run Director",
-            "Rower bezpieczeństwa": "Lead Bike",
-            "Wyznaczając(a)y tempo": "Pacer (5k only)",
-            "Przewodnik dla słabowidzących": "VI Guide",
-            "Fotograf": "Photographer",
-            "Osoba mierząca czas": "Timekeeper",
-            "Zapasowy pomiar czasu": "Backup Timer",
-            "Koordynator tunelu mety": "Funnel Manager",
-            "Pozycje na mecie": "Finish Tokens",
-            "Asystując(a)y przy pozycjach": "Finish Token Support",
-            "Skanując(a)y uczestników": "Barcode Scanning",
-            "Sprawdzając(a)y pozycje na mecie": "Number Checker",
-            "Zbierając(a)y elementy trasy": "Post-event Close Down",
-            "Wprowadzając(a)y wyniki": "Results Processor",
-            "Osoba sortująca tokeny": "Token Sorting",
-            "Przygotowując(a)y raport z biegu": "Run Report Writer",
-            "Inne": "Other",
+            "Przechowując(a)y sprzęt": "Przechowując(a)y sprzęt",
+            "Osoba od komunikacji": "Osoba od komunikacji",
+            "Koordynator woluntariuszy": "Koordynator woluntariuszy",
+            "Ustawiając(a)y elementy trasy": "Ustawiając(a)y elementy trasy",
+            "Instruktor nowych uczestników": "Instruktor nowych uczestników",
+            "Tłumacz języka migowego": "Tłumacz języka migowego",
+            "Ubezpieczając(a)y trasę": "Ubezpieczając(a)y trasę",
+            "Zamykając(a)y stawkę": "Zamykając(a)y stawkę",
+            "Koordynator biegu": "Koordynator biegu",
+            "Rower bezpieczeństwa": "Rower bezpieczeństwa",
+            "Wyznaczając(a)y tempo": "Wyznaczając(a)y tempo",
+            "Przewodnik dla słabowidzących": "Przewodnik dla słabowidzących",
+            "Fotograf": "Fotograf",
+            "Osoba mierząca czas": "Osoba mierząca czas",
+            "Zapasowy pomiar czasu": "Zapasowy pomiar czasu",
+            "Koordynator tunelu mety": "Koordynator tunelu mety",
+            "Pozycje na mecie": "Pozycje na mecie",
+            "Asystując(a)y przy pozycjach": "Asystując(a)y przy pozycjach",
+            "Skanując(a)y uczestników": "Skanując(a)y uczestników",
+            "Sprawdzając(a)y pozycje na mecie": "Sprawdzając(a)y pozycje na mecie",
+            "Zbierając(a)y elementy trasy": "Zbierając(a)y elementy trasy",
+            "Wprowadzając(a)y wyniki": "Wprowadzając(a)y wyniki",
+            "Osoba sortująca tokeny": "Osoba sortująca tokeny",
+            "Przygotowując(a)y raport z biegu": "Przygotowując(a)y raport z biegu",
+            "Inne": "Inne",
             "Prowadzący rozgrzewkę": "Warm Up Leader (junior events only)",
-            "Koordynator parkingu": "Car Park Marshal"
+            "Koordynator parkingu": "Koordynator parkingu"
         }
     },
     "www.parkrun.it": {
@@ -417,7 +417,7 @@ function get_normalised_volunteer_role(role) {
         }
     })
     if (mapped_role === null) {
-        console.log("I18N: UNKNOWN VOLUNTEER ROLE: "+role)
+        console.log("I18N: NIEROZPOZNANA ROLA WOLONTARIACKA: "+role)
     } else {
         if (role != mapped_role) {
             // console.log("I18N: mapped "+role+" to "+mapped_role)
