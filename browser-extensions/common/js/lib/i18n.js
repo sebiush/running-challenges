@@ -393,7 +393,7 @@ function get_localised_value(param, domain=location.host) {
     var domain = domain.replace(/^https?:\/\//,'')
     if (domain in domains) {
         if (param in domains[domain]) {
-            console.log("I18N:"+param+":"+domains[domain][param])
+            //console.log("I18N:"+param+":"+domains[domain][param])
             return domains[domain][param]
         }
     }

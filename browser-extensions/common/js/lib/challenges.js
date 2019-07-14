@@ -2,8 +2,7 @@
 /*
  * Some volunteer roles have changed names, or a role has been deprecated,
  * or it makes sense to know a role by another name. This attempts to do that.
- * This has lots of problems, such as the ability to display them in a language
- * other than English, but that's how it currently works.
+ * Could be done way much cleaner but this has to work for now.
  */
 
 volunteer_roles_map = [
@@ -80,25 +79,25 @@ function generate_running_challenge_data(data) {
       "data": "abcdegjklłoprsśtwzż",
       "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter polskiego alfabetu (oprócz tych obecnie nieistniejących)."}))
     challenge_data.push(challenge_start_letters(data, {
-        "shortname": "diacritic-alph",
-        "name": "Polskie litery diakrytyczne",
-        "data": "łśż",
-        "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter ł, ś i ż."}))
+      "shortname": "diacritic-alph",
+      "name": "Diakrytyczny",
+      "data": "łśż",
+      "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter ł, ś i ż."}))
     challenge_data.push(challenge_start_letters(data, {
-        "shortname": "custom-word",
-        "name": "Polska",
-        "data": "polska",
-        "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter układających się w słowo Polska."}))
+      "shortname": "custom-word",
+      "name": "Polska",
+      "data": "polska",
+      "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter układających się w słowo Polska."}))
     challenge_data.push(challenge_start_letters(data, {
-          "shortname": "gieksa",
-          "name": "GieKSa 5:0",
-          "data": "gksgksgksgksgks",
-          "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter układających się w skrót GKS. Specjalnie dla parkrunnerów z Katowic. Cóż innego można zrobić z ośmioma lokalizacjami na G, 9 na K oraz 5 na S?!"}))
+      "shortname": "gieksa",
+      "name": "GieKSa 5:0",
+      "data": "gksgksgksgksgks",
+      "help": "Ukończ parkrun w lokalizacjach, których nazwy zaczynają się od liter układających się w skrót GKS. Specjalnie dla parkrunnerów z Katowic. Cóż innego można zrobić z ośmioma lokalizacjami na G, 9 na K oraz 5 na S?!"}))
     challenge_data.push(challenge_start_letters(data, {
-            "shortname": "g8-group",
-            "name": "Grupa G8",
-            "data": "gggggggg",
-            "help": "Ukończ parkrun w ośmiu lokalizacjach, których nazwy zaczynają się od liter G."}))
+      "shortname": "g8-group",
+      "name": "Grupa G8",
+      "data": "gggggggg",
+      "help": "Ukończ parkrun w ośmiu lokalizacjach, których nazwy zaczynają się od liter G."}))
     challenge_data.push(challenge_single_parkrun_count(data, {
       "shortname": "single-ton",
       "name": "Lokalny patriota na 100%",
@@ -110,28 +109,28 @@ function generate_running_challenge_data(data) {
       "data": 200,
       "help": "Ukończ 200+ parkrun w tej samej lokalizacji."}))
     challenge_data.push(challenge_finish_position_bingo(data, {
-        "shortname": "finish-position-bingo",
-        "name": "Pozycyjne Bingo",
-        "help": " Zbierz wszystkie miejsca, od 1 do 100 w wynikach parkrun. Brana jest pod uwagę ogólna pozycja modulo 100, tzn. licznik przekręca się powyżej setki, dla większej dostępności wyzwania."}))
+      "shortname": "finish-position-bingo",
+      "name": "Pozycyjne Bingo",
+      "help": " Zbierz wszystkie miejsca, od 1 do 100 w wynikach parkrun. Brana jest pod uwagę ogólna pozycja modulo 100, tzn. licznik przekręca się powyżej setki, dla większej dostępności wyzwania."}))
     challenge_data.push(challenge_stopwatch_bingo(data, {
       "shortname": "stopwatch-bingo",
       "name": "Stoperowe Bingo",
       "help": " Zbierz wszystkie sekundy, od 00 do 59."}))
-      challenge_data.push(challenge_metronome(data, {
-        "shortname": "metronome",
-        "name": "Metronom",
-        "help": "Ukończ parkrun z tym samym czasem podczas 10 różnych okazji."}))
-     challenge_compass_club_regions(data, challenge_data)
-     challenge_data.push(challenge_words(data, {
-        "shortname": "lake-club",
-        "name": "Władca Jezior",
-        "data": ["Jezioro Górne","Jezioro Swarzędzkie","Jezioro Zatorze"],
-        "help": "Ukończ parkrun we wszystkich lokalizacjach Polski z jeziorem w nazwie."}))
+    challenge_data.push(challenge_metronome(data, {
+      "shortname": "metronome",
+      "name": "Metronom",
+      "help": "Ukończ parkrun z tym samym czasem podczas 10 różnych okazji."}))
+    challenge_compass_club_regions(data, challenge_data)
     challenge_data.push(challenge_words(data, {
-          "shortname": "park-club",
-          "name": "Spacerek po parku",
-          "data": ["Park miejski","Park na wyspie","Park zdrojowy"],
-          "help": "Ukończ parkrun we wszystkich lokalizacjach Polski z parkiem w nazwie."}))
+      "shortname": "lake-club",
+      "name": "Władca Jezior",
+      "data": ["Jezioro Górne","Jezioro Swarzędzkie","Jezioro Zatorze"],
+      "help": "Ukończ parkrun we wszystkich lokalizacjach Polski z jeziorem w nazwie."}))
+    challenge_data.push(challenge_words(data, {
+      "shortname": "park-club",
+      "name": "Spacerek po parku",
+      "data": ["Park miejski","Park na wyspie","Park zdrojowy"],
+      "help": "Ukończ parkrun we wszystkich lokalizacjach Polski z parkiem w nazwie."}))
     challenge_data.push(challenge_parkruns(data, {
       "shortname": "full-ponty",
       "name": "Stolica",
@@ -143,14 +142,14 @@ function generate_running_challenge_data(data) {
       "data": ["Las Aniołowski", "Toruń"],
       "help": "Ukończ parkrun w Częstochowie i Toruniu."}))
     // Note for the dates, the month is zero indexed (0-11), the day of the month is (1-31)
-     challenge_data.push(challenge_on_dates(data, {
-        "shortname": "boxing-day",
-        "name": "Drugi Dzień Świąt",
-        "data": [
+    challenge_data.push(challenge_on_dates(data, {
+      "shortname": "boxing-day",
+      "name": "Drugi Dzień Świąt",
+      "data": [
           {"month": 11, "day": 26}
         ],
         "help": "Ukończ parkrun 26 grudnia."}))
-      challenge_data.push(challenge_nyd_double(data, {
+    challenge_data.push(challenge_nyd_double(data, {
       "shortname": "nyd-double",
       "name":  "Dubel Noworoczny",
       "help": "Ukończ dwa parkrun tego samego dnia w Nowym Roku."}))
@@ -159,9 +158,9 @@ function generate_running_challenge_data(data) {
       "name": "Dzień Świstaka",
       "help": "Ukończ z tym samym czasem, w tej samej lokalizacji w dwóch kolejnych parkrun."}))
     challenge_data.push(challenge_habitual(data, {
-        "shortname": "habitual",
-        "name": "Siła przyzwyczajenia",
-        "help": "Ukończ parkrun na tej samej pozycji podczas 10 różnych okazji."}))  
+      "shortname": "habitual",
+      "name": "Siła przyzwyczajenia",
+      "help": "Ukończ parkrun na tej samej pozycji podczas 10 różnych okazji."}))
     challenge_data.push(challenge_on_dates(data, {
       "shortname": "all-weather-runner",
       "name": "Nie ma złej pogody na parkrun",
@@ -181,9 +180,9 @@ function generate_running_challenge_data(data) {
       ],
       "help": "Ukończ parkrun w każdym miesiącu roku."}))
     challenge_data.push(challenge_on_dates(data, {
-        "shortname": "callendar-runner",
-        "name": "Wyrywam kartki z kalendarza",
-        "data": [
+      "shortname": "callendar-runner",
+      "name": "Wyrywam kartki z kalendarza",
+      "data": [
           {"day": 1},
           {"day": 2},
           {"day": 3},
@@ -216,17 +215,17 @@ function generate_running_challenge_data(data) {
           {"day": 30},
           {"day": 31},
         ],
-        "help": "Ukończ parkrun w każdym możliwym dniu (dowolnego) miesiąca."}))  
+      "help": "Ukończ parkrun w każdym możliwym dniu (dowolnego) miesiąca."}))
     challenge_data.push(challenge_in_a_year(data, {
-        "shortname": "obsessive-wood",
-        "name": "Drewniana Obsesja",
-        "data": 10,
-        "help": "Ukończ 10+ parkrunów jednym roku kalendarzowym."}))
+      "shortname": "obsessive-wood",
+      "name": "Drewniana Obsesja",
+      "data": 10,
+      "help": "Ukończ 10+ parkrunów jednym roku kalendarzowym."}))
     challenge_data.push(challenge_in_a_year(data, {
-        "shortname": "obsessive-iron",
-        "name": "Żelazna Obsesja",
-        "data": 20,
-        "help": "Ukończ 20+ parkrunów jednym roku kalendarzowym"}))
+      "shortname": "obsessive-iron",
+      "name": "Żelazna Obsesja",
+      "data": 20,
+      "help": "Ukończ 20+ parkrunów jednym roku kalendarzowym"}))
     challenge_data.push(challenge_in_a_year(data, {
       "shortname": "obsessive-bronze",
       "name": "Brązowa Obsesja",
@@ -1620,21 +1619,21 @@ function challenge_tourist(data, params) {
     }
 
     // Work out if it is possible to have a partial completion
-    if (params.shortname == "cowell-club" && o.complete == false) {
-        if (o.subparts_completed_count >= 75) {
-            o.partial_completion = true
-            o.partial_completion_name = "Three-Quarter Cowell"
-            o.partial_completion_badge_icon = "runner-three-quarter-cowell-club"
-        } else if (o.subparts_completed_count >= 50) {
-            o.partial_completion = true
-            o.partial_completion_name = "Half Cowell"
-            o.partial_completion_badge_icon = "runner-half-cowell-club"
-        } else if (o.subparts_completed_count >= 25) {
-            o.partial_completion = true
-            o.partial_completion_name = "Quarter Cowell"
-            o.partial_completion_badge_icon = "runner-quarter-cowell-club"
-        }
-    }
+    // if (params.shortname == "cowell-club" && o.complete == false) {
+    //     if (o.subparts_completed_count >= 75) {
+    //         o.partial_completion = true
+    //         o.partial_completion_name = "Three-Quarter Cowell"
+    //         o.partial_completion_badge_icon = "runner-three-quarter-cowell-club"
+    //     } else if (o.subparts_completed_count >= 50) {
+    //         o.partial_completion = true
+    //         o.partial_completion_name = "Half Cowell"
+    //         o.partial_completion_badge_icon = "runner-half-cowell-club"
+    //     } else if (o.subparts_completed_count >= 25) {
+    //         o.partial_completion = true
+    //         o.partial_completion_name = "Quarter Cowell"
+    //         o.partial_completion_badge_icon = "runner-quarter-cowell-club"
+    //     }
+    // }
 
     // Return an object representing this challenge
     return update_data_object(o)
@@ -1698,20 +1697,6 @@ function get_home_parkrun(data) {
   }
   return undefined
 }
-
-// // Return true if there is a custom word set
-// function has_custom_word(data) {
-//   custom_word = get_custom_word(data)
-//   return custom_word !== undefined
-// }
-
-// function get_custom_word(data) {
-//   if (data.user_data !== undefined) {
-//     return data.user_data.custom_work
-//   }
-//   return undefined
-// }
-
 
 function has_lat_lon(details) {
   return details.lat !== undefined && details.lon !== undefined

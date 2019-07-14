@@ -11,9 +11,6 @@ function initial_page_setup() {
     $('#athlete_number').bind('keyup change', function() {
         on_change_athlete_number()
     })
-    $('#custom_word').bind('keyup change', function() {
-        on_change_custom_word()
-    })
     // Attach the clear-cache function to the 'Update Cache' button
     $('#update_cache').click(function() {
         update_cache(true)
@@ -55,10 +52,6 @@ function on_change_athlete_number() {
     }
 }
 
-function on_change_custom_word() {
-    var custom_word = $('#custom_word').val();
-}
-
 // function on_change_enable_beta_features() {
 //   console.log("on_change_enable_beta_features()")
 //   if ($('#enable_beta_features').prop('checked')) {
@@ -87,11 +80,11 @@ function show_debug_elements(visible=false) {
 
 function get_home_parkrun_info(parkrun_event_name) {
     // Look up extra pieces of information for this parkrun, if available
-    console.log('Wyszukiwanie danych macierzystej lokalizacji parkrun '+parkrun_event_name)
+    //console.log('looking up info for home parkrun '+parkrun_event_name)
     if (geo_data !== null) {
         if (parkrun_event_name in geo_data.data.events) {
             home_event_info = geo_data.data.events[parkrun_event_name]
-            console.log('Znaleziono info dla '+parkrun_event_name+': '+JSON.stringify(home_event_info))
+            //console.log('Found info for '+parkrun_event_name+': '+JSON.stringify(home_event_info))
             return home_event_info
         }
     }
@@ -109,7 +102,6 @@ function save_user_configuration() {
     //console.log('save_user_configuration()')
 
     var athlete_number = $('#athlete_number').val();
-    //var custom_word = $('#custom_word').val();
     var athlete_home_parkrun = $('#athlete_home_parkrun').val();
     // var enable_beta_features_checked = $('#enable_beta_features').prop('checked');
 
@@ -117,7 +109,6 @@ function save_user_configuration() {
     // Fetch the home parkrun info
     var saved_data = {
         athlete_number: athlete_number,
-        custom_word: custom_word,
         home_parkrun_info: get_home_parkrun_info(athlete_home_parkrun),
         // enable_beta_features: enable_beta_features_checked
     }
@@ -126,12 +117,12 @@ function save_user_configuration() {
     saved_options = saved_data
     update_home_parkrun_country()
 
-    console.log('Zapisywanie: '+JSON.stringify(saved_data))
+    //console.log('Saving: '+JSON.stringify(saved_data))
 
     browser.storage.local.set(saved_data).then(function() {
         // Update status to let user know options were saved.
         var status = document.getElementById('status');
-        status.textContent = 'Opcje zapisano.';
+        status.textContent = 'Opcje zapisane.';
         setTimeout(function() {
             status.textContent = '';
         }, 750);
@@ -143,15 +134,13 @@ function load_user_configuration() {
     var restored_options = null
     browser.storage.local.get({
         athlete_number: '',
-        custom_word: '',
         home_parkrun_info: {},
         // enable_beta_features: false
     }).then(function(items) {
         // Store it on the page for future use
         saved_options = items
-        console.log('Załadowano: '+JSON.stringify(items))
+        //console.log('Loaded: '+JSON.stringify(items))
         $('#athlete_number').val(items.athlete_number);
-        $('#custom_word').val(items.custom_word);
         // Update the home parkrun dropdown with the loaded value, if present
         update_home_parkrun_dropdown()
         // update_enable_beta_features_checkbox(items.enable_beta_features)
@@ -226,7 +215,7 @@ function update_home_parkrun_dropdown() {
     var not_set_option = $('<option/>',
     {
         value: 'Not Set',
-        text: "Nie ustawione"
+        text: "Not Set"
     })
 
     // Clear all the existing keys
@@ -290,7 +279,7 @@ function update_home_parkrun_country() {
     if ('country_name' in p_info) {
         h_parkrun_div.text(p_info.country_name)
     } else {
-        h_parkrun_div.text("Nieznany")
+        h_parkrun_div.text("Unknown")
     }
 
     $("#home_parkrun_info").text(JSON.stringify(p_info, null, 4))

@@ -91,7 +91,6 @@ function get_cache_summary() {
   }
 
   return summary
-
 }
 
 function clear_cache() {
@@ -110,7 +109,7 @@ function clear_cache_by_name(name) {
 
 function traverse_geo_data(geo_data, region_name, depth=0) {
 
-    // console.log('traverse_geo_data('+region_name+')')
+    console.log('traverse_geo_data('+region_name+')')
 
     var regions = geo_data.regions
     var events = geo_data.events
